@@ -35,6 +35,9 @@ export function SiteFooter() {
           <a href="/#pricing" className="hover:text-fg">
             {t.nav.pricing}
           </a>
+          <a href="/#faq" className="hover:text-fg">
+            {t.nav.faq}
+          </a>
           <a href="/#about" className="hover:text-fg">
             {t.nav.about}
           </a>

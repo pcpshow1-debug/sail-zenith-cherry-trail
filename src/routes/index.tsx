@@ -131,6 +131,45 @@ function HomePage() {
         </section>
 
         <section
+          className="section-pad section-y bg-bg-elevated"
+          data-slide="leak"
+          data-slide-label="Where the lead dies"
+        >
+          <div className="container-site mx-auto max-w-4xl space-y-8">
+            <div className="space-y-3 text-center">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-danger">
+                {t.leak.kicker}
+              </p>
+              <h2 className="text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">
+                {t.leak.title}
+              </h2>
+              <p className="text-lg font-semibold text-fg">{t.leak.note}</p>
+            </div>
+            <ol className="grid gap-3 sm:grid-cols-4">
+              {t.leak.steps.map((step, i) => (
+                <li
+                  key={step.t}
+                  className={`rounded-2xl border px-4 py-5 text-center ${
+                    i === t.leak.steps.length - 1
+                      ? "border-danger/40 bg-white"
+                      : "border-border bg-bg"
+                  }`}
+                >
+                  <p
+                    className={`font-mono text-2xl font-extrabold ${
+                      i === t.leak.steps.length - 1 ? "text-danger" : "text-accent"
+                    }`}
+                  >
+                    {step.t}
+                  </p>
+                  <p className="mt-2 text-base font-semibold text-fg">{step.line}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section
           id="estimator"
           className="section-pad section-y scroll-mt-20"
           data-slide="estimator"
@@ -428,6 +467,28 @@ function HomePage() {
           </div>
         </section>
 
+        <section
+          className="section-pad section-y"
+          data-slide="onboard"
+          data-slide-label="After you pay"
+        >
+          <div className="container-site mx-auto max-w-4xl space-y-8">
+            <Heading>{t.onboard.title}</Heading>
+            <ol className="grid gap-4 sm:grid-cols-3">
+              {t.onboard.steps.map((step, i) => (
+                <li
+                  key={step.title}
+                  className="rounded-2xl border border-border bg-bg px-5 py-6"
+                >
+                  <p className="font-mono text-sm font-bold text-accent">0{i + 1}</p>
+                  <h3 className="mt-3 text-xl font-extrabold text-fg">{step.title}</h3>
+                  <p className="mt-2 text-base text-muted">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         <section id="about" className="section-pad section-y bg-bg-elevated" data-slide="about">
           <div className="container-site space-y-10">
             <div className="mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
@@ -491,6 +552,59 @@ function HomePage() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" className="section-pad section-y" data-slide="faq">
+          <div className="container-site mx-auto max-w-3xl space-y-8">
+            <div className="space-y-2 text-center">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
+                {t.faq.kicker}
+              </p>
+              <Heading>{t.faq.title}</Heading>
+            </div>
+            <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-bg-elevated">
+              {t.faq.items.map((item) => (
+                <details key={item.q} className="group px-5 py-4">
+                  <summary className="cursor-pointer list-none text-left text-lg font-bold text-fg marker:hidden [&::-webkit-details-marker]:hidden">
+                    <span className="flex items-start justify-between gap-4">
+                      {item.q}
+                      <span className="mt-1 text-accent group-open:hidden">+</span>
+                      <span className="mt-1 hidden text-accent group-open:inline">–</span>
+                    </span>
+                  </summary>
+                  <p className="mt-3 max-w-2xl text-base text-muted">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-pad section-y bg-bg-elevated" data-slide="close">
+          <div className="container-site mx-auto max-w-2xl space-y-5 text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight text-fg sm:text-4xl">
+              {t.close.title}
+            </h2>
+            <p className="text-lg text-muted">{t.close.body}</p>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href={appUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="try-estimator"
+                data-track-label="Close try estimator"
+                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-semibold text-white sm:w-auto"
+              >
+                {t.close.cta}
+              </a>
+              <button
+                type="button"
+                onClick={() => openLead("close")}
+                className="inline-flex h-12 w-full items-center justify-center rounded-full border border-border px-6 text-sm font-semibold sm:w-auto"
+              >
+                {t.close.talk}
+              </button>
             </div>
           </div>
         </section>

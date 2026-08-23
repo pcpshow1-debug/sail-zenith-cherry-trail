@@ -39,6 +39,7 @@ export type Messages = {
     estimator: string;
     crm: string;
     content: string;
+    faq: string;
   };
   legal: {
     terms: string;
@@ -95,6 +96,12 @@ export type Messages = {
     site: string;
     siteNote: string;
     total: string;
+  };
+  leak: {
+    kicker: string;
+    title: string;
+    note: string;
+    steps: { t: string; line: string }[];
   };
   solution: {
     ask: string;
@@ -252,6 +259,7 @@ export type Messages = {
     privacy: string;
   };
   lang: { en: string; ru: string; switch: string };
+  notFound: { title: string; body: string; home: string };
 };
 
 const en: Messages = {
@@ -272,6 +280,7 @@ const en: Messages = {
     estimator: "Estimator",
     crm: "CRM",
     content: "AI content",
+    faq: "FAQ",
   },
   legal: {
     terms: "Terms of Service",
@@ -333,6 +342,17 @@ const en: Messages = {
     site: "Website",
     siteNote: "Upfront + monthly",
     total: "Every month. From almost nothing.",
+  },
+  leak: {
+    kicker: "Where the lead dies",
+    title: "60 seconds.",
+    note: "Homeowners call 3–5 companies. The first clear price usually wins.",
+    steps: [
+      { t: "0s", line: "They tap you." },
+      { t: "15s", line: "No price. They bounce." },
+      { t: "45s", line: "Three other companies." },
+      { t: "60s", line: "You lost them." },
+    ],
   },
   solution: {
     ask: "What's the solution?",
@@ -698,6 +718,11 @@ const en: Messages = {
     privacy: "Used only to talk to you about Rhino Lab.",
   },
   lang: { en: "EN", ru: "RU", switch: "Language" },
+  notFound: {
+    title: "This page isn’t here.",
+    body: "The estimator is. Try that — or go home.",
+    home: "Back to Rhino Lab",
+  },
 };
 
 const ru: Messages = {
@@ -718,6 +743,7 @@ const ru: Messages = {
     estimator: "Оценщик",
     crm: "CRM",
     content: "AI-контент",
+    faq: "FAQ",
   },
   legal: {
     terms: "Terms of Service",
@@ -779,6 +805,17 @@ const ru: Messages = {
     site: "Сайт",
     siteNote: "Сразу + каждый месяц",
     total: "Каждый месяц. Почти ни за что.",
+  },
+  leak: {
+    kicker: "Где умирает лид",
+    title: "60 секунд.",
+    note: "Хозяин звонит в 3–5 компаний. Обычно берёт того, кто первый дал цену.",
+    steps: [
+      { t: "0с", line: "Нажал на вас." },
+      { t: "15с", line: "Нет цены. Ушёл." },
+      { t: "45с", line: "Ещё три компании." },
+      { t: "60с", line: "Лид ваш — уже нет." },
+    ],
   },
   solution: {
     ask: "What's the solution?",
@@ -1143,6 +1180,11 @@ const ru: Messages = {
     privacy: "Данные только чтобы связаться по Rhino Lab.",
   },
   lang: { en: "EN", ru: "RU", switch: "Язык" },
+  notFound: {
+    title: "Такой страницы нет.",
+    body: "Оценщик на месте. Попробуй его — или на главную.",
+    home: "На главную Rhino Lab",
+  },
 };
 
 const catalog: Record<Locale, Messages> = { en, ru };

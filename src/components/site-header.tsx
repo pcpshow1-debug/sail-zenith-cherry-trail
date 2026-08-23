@@ -14,6 +14,7 @@ export function SiteHeader() {
     { href: "/#estimator", label: t.nav.estimator },
     { href: "/#crm", label: t.estimatorJobs.crm },
     { href: "/#pricing", label: t.nav.pricing },
+    { href: "/#faq", label: t.nav.faq },
     { href: "/#about", label: t.nav.about },
   ];
 

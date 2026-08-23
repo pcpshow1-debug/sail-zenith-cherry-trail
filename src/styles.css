@@ -1,0 +1,194 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-bg: #f7f8fa;
+  --color-bg-elevated: #ffffff;
+  --color-fg: #000000;
+  --color-muted: #2a2e35;
+  --color-subtle: #4b5160;
+  --color-border: #e6e8ec;
+  --color-border-strong: #d0d4db;
+  --color-primary: #0b3d91;
+  --color-primary-hover: #0a3380;
+  --color-primary-soft: #e8eef8;
+  --color-accent: #0066ff;
+  --color-danger: #dc2626;
+  --color-success: #16a34a;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "DM Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 106.25%; /* ~17px base — easier for older eyes */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer utilities {
+  .section-pad {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-y {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  .container-site {
+    @apply mx-auto w-full max-w-6xl;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-7xl;
+  }
+}
+
+/* Hide native video chrome — iOS paints a play glyph if controls leak. */
+.rhino-loop-video {
+  pointer-events: none;
+}
+.rhino-loop-video::-webkit-media-controls,
+.rhino-loop-video::-webkit-media-controls-enclosure,
+.rhino-loop-video::-webkit-media-controls-start-playback-button,
+.rhino-loop-video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes old-way-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.old-way-card {
+  opacity: 0.55;
+  transform: scale(0.99);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease,
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+}
+
+.old-way-card-in {
+  animation: old-way-in 0.5s ease both;
+}
+
+.old-way-card-lit {
+  opacity: 1;
+  transform: scale(1.01);
+  border-color: color-mix(in srgb, var(--color-danger) 45%, var(--color-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 12%, transparent);
+}
+
+@keyframes race-ring {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes race-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes race-buzz {
+  0%,
+  15%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  2% {
+    transform: translateX(-12px) rotate(-2.2deg);
+  }
+  4% {
+    transform: translateX(12px) rotate(2.2deg);
+  }
+  6% {
+    transform: translateX(-10px) rotate(-1.8deg);
+  }
+  8% {
+    transform: translateX(10px) rotate(1.8deg);
+  }
+  10% {
+    transform: translateX(-4px) rotate(-0.8deg);
+  }
+  12% {
+    transform: translateX(4px) rotate(0.8deg);
+  }
+  13.5% {
+    transform: translateX(-2px) rotate(-0.4deg);
+  }
+  46% {
+    transform: translateX(0) rotate(0deg);
+  }
+  48% {
+    transform: translateX(-8px) rotate(-1.6deg);
+  }
+  50% {
+    transform: translateX(8px) rotate(1.6deg);
+  }
+  52% {
+    transform: translateX(-7px) rotate(-1.4deg);
+  }
+  54% {
+    transform: translateX(7px) rotate(1.4deg);
+  }
+  56% {
+    transform: translateX(-4px) rotate(-0.8deg);
+  }
+  58% {
+    transform: translateX(4px) rotate(0.8deg);
+  }
+  59.5% {
+    transform: translateX(-2px) rotate(-0.4deg);
+  }
+}

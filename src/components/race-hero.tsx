@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, Volume2, VolumeX } from "lucide-react";
 import { useLocale } from "@/lib/i18n";
+import { estimatorUrl } from "@/lib/estimator";
 
 type Scene = "lock" | "notif" | "list" | "cold" | "won" | "detail";
 
@@ -89,8 +90,9 @@ function buzzDevice(pattern: number[]) {
 }
 
 export function RaceHero() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const copy = t.race;
+  const appUrl = estimatorUrl(locale);
   const [scene, setScene] = useState<Scene>("lock");
   const [pipeline, setPipeline] = useState(false);
   const [run, setRun] = useState(0);
@@ -181,6 +183,20 @@ export function RaceHero() {
           <br />
           <span className="text-[#ff6b35]">{copy.titleAccent}</span>
         </h1>
+        <p className="mt-4 max-w-md animate-[race-fade-up_0.7s_ease_0.25s_forwards] text-center text-[15px] leading-snug text-white/80 opacity-0 sm:text-base">
+          {copy.sub}
+        </p>
+        <a
+          href={appUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="try-estimator"
+          data-track-label="Hero live demo"
+          className="mt-6 inline-flex h-12 animate-[race-fade-up_0.7s_ease_0.32s_forwards] items-center justify-center gap-2 rounded-full bg-[#ff6b35] px-6 text-sm font-bold text-white opacity-0 hover:bg-[#ff814f]"
+        >
+          {copy.cta}
+          <ArrowRight className="size-4" />
+        </a>
 
         <div className="mt-8 animate-[race-fade-up_0.7s_ease_0.4s_forwards] opacity-0">
           <div

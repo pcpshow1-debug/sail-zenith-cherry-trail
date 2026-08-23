@@ -78,6 +78,7 @@ export type Messages = {
     tapSound: string;
     notifName: string;
     notifBody: string;
+    cta: string;
   };
   sell: {
     title: string;
@@ -102,6 +103,50 @@ export type Messages = {
     title: string;
     note: string;
     steps: { t: string; line: string }[];
+  };
+  compete: {
+    kicker: string;
+    title: string;
+    same: string;
+    rhino: string;
+    others: { name: string; time: string }[];
+  };
+  delay: {
+    title: string;
+    sub: string;
+    oldLabel: string;
+    newLabel: string;
+    old: string[];
+    neu: string[];
+  };
+  meet: { title: string; line: string; sub: string };
+  steps3: { kicker: string; items: { n: string; title: string; body: string }[] };
+  estBlock: { title: string; cta: string };
+  crmSell: {
+    title: string;
+    call: string;
+    name: string;
+    job: string;
+    size: string;
+    extras: string;
+    estimate: string;
+    source: string;
+    submitted: string;
+  };
+  follow: { title: string; items: string[] };
+  roi: {
+    title: string;
+    avg: string;
+    avgLabel: string;
+    setup: string;
+    setupLabel: string;
+    line: string;
+  };
+  trust: {
+    title: string;
+    privacyTitle: string;
+    privacy: string;
+    cases: { who: string; note: string }[];
   };
   stories: {
     kicker: string;
@@ -281,7 +326,7 @@ const en: Messages = {
     proof: "Proof",
     pricing: "Pricing",
     about: "About",
-    tryEstimator: "TRY RHINO LAB",
+    tryEstimator: "SEE LIVE DEMO →",
     howItWorks: "How it works",
     estimator: "Estimator",
     crm: "CRM",
@@ -305,7 +350,7 @@ const en: Messages = {
     kicker: "RHINO LAB",
     title: "First to answer",
     titleAccent: "wins the job.",
-    sub: "This is what happens on your customer's phone right now — every single day.",
+    sub: "Instant estimator + CRM for home service businesses. Quote leads in under 60 seconds — before your competitor does.",
     timer: "TIME TO FIRST RESPONSE —",
     messages: "Messages",
     cold: "4 conversations going cold",
@@ -326,6 +371,7 @@ const en: Messages = {
     tapSound: "Tap for sound",
     notifName: "Rhino Lab",
     notifBody: "Your vinyl fence estimate: $4,850–$5,600",
+    cta: "SEE LIVE DEMO →",
   },
   sell: {
     title: "What we sell",
@@ -358,6 +404,81 @@ const en: Messages = {
       { t: "15s", line: "No price. They bounce." },
       { t: "45s", line: "Three other companies." },
       { t: "60s", line: "You lost them." },
+    ],
+  },
+  compete: {
+    kicker: "Same lead",
+    title: "Your lead didn’t contact only you.",
+    same: "Same homeowner. Same job. Five companies competing for it.",
+    rhino: "Instant estimate — under 60 sec",
+    others: [
+      { name: "Company A", time: "15 min" },
+      { name: "Company B", time: "1 hour" },
+      { name: "Company C", time: "Tomorrow" },
+      { name: "Company D", time: "No response" },
+    ],
+  },
+  delay: {
+    title: "You already paid for the lead.",
+    sub: "Don’t lose it after the click.",
+    oldLabel: "The delay",
+    newLabel: "Rhino Lab",
+    old: ["Paid traffic", "Lead", "Website", "Waiting", "Competitor wins"],
+    neu: ["Paid traffic", "Rhino Lab", "Instant estimate", "CRM", "Sales alert", "Follow-up"],
+  },
+  meet: {
+    title: "Meet Rhino Lab.",
+    line: "Estimator + CRM + Follow-Up",
+    sub: "Quote them. Capture them. Follow up.",
+  },
+  steps3: {
+    kicker: "How it works",
+    items: [
+      { n: "01", title: "Customer gets an instant estimate", body: "Job type, size, options — a number on their phone." },
+      { n: "02", title: "Rhino Lab captures the entire lead", body: "Name, phone, address, what they wanted. Filed. Not a voicemail." },
+      { n: "03", title: "Your team knows who to call", body: "And exactly what they want — before the next company picks up." },
+    ],
+  },
+  estBlock: {
+    title: "Give them an answer while they’re still on your website.",
+    cta: "TRY THE LIVE ESTIMATOR →",
+  },
+  crmSell: {
+    title: "Your salesman shouldn’t start the call blind.",
+    call: "Call them while they’re still thinking about the project.",
+    name: "David Smith",
+    job: "Cedar Fence",
+    size: "180 LF",
+    extras: "2 Gates",
+    estimate: "$8,400–$9,600",
+    source: "Google Ads",
+    submitted: "34 sec ago",
+  },
+  follow: {
+    title: "Didn’t book today? Don’t lose them tomorrow.",
+    items: [
+      "Estimate reminder",
+      "Lead follow-up",
+      "Sales notification",
+      "CRM stage",
+      "Customer history",
+    ],
+  },
+  roi: {
+    title: "Rhino Lab doesn’t need to transform your business. It only needs to save one job.",
+    avg: "$7,500",
+    avgLabel: "Average project",
+    setup: "$950",
+    setupLabel: "Rhino Base setup",
+    line: "One recovered job can pay for Rhino Lab several times over.",
+  },
+  trust: {
+    title: "Built for real home-service businesses.",
+    privacyTitle: "Your business stays yours.",
+    privacy: "Your leads. Your pricing. Your customer data. Never shared with another contractor.",
+    cases: [
+      { who: "Fence contractor — Seattle, WA", note: "Client name withheld by request" },
+      { who: "Deck & outdoor living — Pacific Northwest", note: "Client name withheld by request" },
     ],
   },
   stories: {
@@ -594,18 +715,18 @@ const en: Messages = {
   pricing: {
     kicker: "Prices",
     title: "Two packages.",
-    body: "Start with Base. Step up to Pro when you want the full brand experience.",
+    body: "Start with Base. Step up to Pro when the journey should feel like a salesman.",
     frame:
-      "Base captures the lead. Pro becomes your digital salesman. Ultimate generates the traffic so you stop buying names.",
+      "Base captures the lead. Pro becomes your digital salesman.",
     setup: "Setup",
     month: "/month",
     popular: "Start here",
-    startHere: "The leak stops here.",
-    whenReady: "When you're ready for traffic",
+    startHere: "Stop losing leads.",
+    whenReady: "The full sales experience",
     base: {
       name: "Rhino Base",
-      title: "Catch the lead you already get.",
-      tag: "Estimator + CRM. The leak stops here.",
+      title: "Stop losing leads.",
+      tag: "Stop losing leads.",
       cta: "START WITH BASE",
       features: [
         "Branded Instant Estimator",
@@ -619,8 +740,8 @@ const en: Messages = {
     },
     pro: {
       name: "Rhino Pro",
-      title: "A digital salesman that never clocks out.",
-      tag: "Everything in Base — plus the brand people remember.",
+      title: "Turn your entire customer journey into a sales experience.",
+      tag: "Turn your entire customer journey into a sales experience.",
       cta: "START WITH PRO",
       features: [
         "Everything in Rhino Base",
@@ -650,10 +771,10 @@ const en: Messages = {
     },
   },
   about: {
-    kicker: "Who built this",
+    kicker: "Founder",
     name: "David Zuev",
-    p1: "Over seven years of experience. Hundreds of clients. Over two hundred thousand followers across Instagram, YouTube, and TikTok.",
-    p2: "I did not invent this from a coworking space. I work inside a fence company. I know the missed call, the wasted drive, the lead that died in the van. Rhino Lab is the system I wanted on every truck: content, estimator, CRM, sales-ready leads.",
+    p1: "Built inside real home-service operations — not in a startup incubator.",
+    p2: "Rhino Lab comes from real sales, marketing, lead-generation, and contractor-business experience. Not from a slide deck.",
     years: "7+ years",
     yearsSub: "in the field",
     clients: "Hundreds",
@@ -685,32 +806,48 @@ const en: Messages = {
     ],
   },
   faq: {
-    kicker: "Straight answers",
+    kicker: "FAQ",
     title: "What owners ask before they buy.",
     items: [
       {
-        q: "I already have a website. Why do I need this?",
-        a: "A website that sits there does not text a homeowner in 60 seconds. Rhino Lab is the path from first tap to a sales-ready card in your CRM — not another page that says “call us.”",
+        q: "How accurate are the estimates?",
+        a: "They follow your price book. Ranges, not a binding contract. Final price is still yours after the site visit.",
       },
       {
-        q: "I am not a tech person.",
-        a: "You do not open a dashboard to make this work. They get a link. You get a lead. If they go quiet, the follow-up texts fire on their own.",
+        q: "Can I change my prices?",
+        a: "Yes. Materials, labor, add-ons — you update the book. The estimator uses what you set.",
       },
       {
-        q: "I only do one trade — fences, decks, roofs.",
-        a: "That is the point. Your pricing rules, your materials, your brand. The estimator is not a generic form. It is your price book on autopilot.",
+        q: "Can Rhino Lab work with my existing website?",
+        a: "Yes. The estimator is a link. Put it on your site, ads, or bio. You don’t have to rebuild everything.",
       },
       {
-        q: "How is this different from Angi or Facebook ads?",
-        a: "Those rent you a name. You pay again next month. Ultimate builds content and distribution you own. Base and Pro make sure the leads you already get do not die in voicemail.",
+        q: "Do I need to replace my current CRM?",
+        a: "No. Every estimator includes a built-in CRM. Keep your old one if you want — most owners just use this card.",
       },
       {
-        q: "What happens after they get the estimate?",
-        a: "They answer 3–5 questions, send photos, and land in CRM. If they do not book, SMS follow-up runs for five days. You see deal value on one card.",
+        q: "Who owns the customer data?",
+        a: "You do. Leads, pricing, customer records stay yours. We don’t sell them and we don’t share them with another contractor.",
       },
       {
-        q: "Do I have to start with Ultimate?",
-        a: "No. Most owners start with Base or Pro to stop the leak. Step up to Ultimate when you want the machine to generate the traffic too.",
+        q: "Can my sales team access the leads?",
+        a: "Yes. The card is built for the person who picks up the phone.",
+      },
+      {
+        q: "Can customers still book an on-site estimate?",
+        a: "Yes. The instant number gets them talking. The visit still closes the real job.",
+      },
+      {
+        q: "How long does setup take?",
+        a: "We talk, we build, leads land. Most Base setups are days, not months.",
+      },
+      {
+        q: "Can this work for decks, roofing, landscaping, HVAC, and other home services?",
+        a: "Yes. If you quote from a price book, we can put that book on autopilot.",
+      },
+      {
+        q: "What if the final project price changes after an on-site visit?",
+        a: "That’s normal. The estimator is the first answer, not the last invoice.",
       },
     ],
   },
@@ -725,12 +862,12 @@ const en: Messages = {
   compare: "The old stack burns $30,000+ a month. Rhino starts at $950.",
   crmHeading: "The lead lands in a card",
   contentHeading: "AI videos. Real views.",
-  tryDemo: "Try Rhino Lab Estimator",
+  tryDemo: "TRY THE LIVE ESTIMATOR →",
   orderPlan: "Request this plan",
   close: {
-    title: "The next lead is calling someone. Make sure it is you.",
-    body: "Try the estimator in 60 seconds. Or tell us about your company and we will map the right plan.",
-    cta: "TRY THE ESTIMATOR",
+    title: "Your next lead is probably asking another contractor too.",
+    body: "Give them an answer before your competitor does.",
+    cta: "BUILD MY RHINO LAB →",
     talk: "Talk to Rhino Lab",
   },
   lead: {
@@ -775,7 +912,7 @@ const ru: Messages = {
     proof: "Доказательства",
     pricing: "Цены",
     about: "О нас",
-    tryEstimator: "ПОПРОБОВАТЬ",
+    tryEstimator: "СМОТРЕТЬ ДЕМО →",
     howItWorks: "Как это работает",
     estimator: "Оценщик",
     crm: "CRM",
@@ -797,9 +934,9 @@ const ru: Messages = {
   },
   race: {
     kicker: "RHINO LAB",
-    title: "Кто ответил первым",
+    title: "Первый ответ",
     titleAccent: "забирает работу.",
-    sub: "Вот что происходит в телефоне клиента прямо сейчас — каждый день.",
+    sub: "Мгновенный оценщик + CRM для home-service. Смета лиду меньше чем за 60 секунд — раньше конкурента.",
     timer: "ВРЕМЯ ДО ПЕРВОГО ОТВЕТА —",
     messages: "Сообщения",
     cold: "4 переписки остывают",
@@ -820,6 +957,7 @@ const ru: Messages = {
     tapSound: "Звук",
     notifName: "Rhino Lab",
     notifBody: "Смета на виниловый забор: $4,850–$5,600",
+    cta: "СМОТРЕТЬ ДЕМО →",
   },
   sell: {
     title: "Что продаём",
@@ -852,6 +990,81 @@ const ru: Messages = {
       { t: "15с", line: "Нет цены. Ушёл." },
       { t: "45с", line: "Ещё три компании." },
       { t: "60с", line: "Лид ваш — уже нет." },
+    ],
+  },
+  compete: {
+    kicker: "Тот же лид",
+    title: "Лид написал не только вам.",
+    same: "Один хозяин. Одна работа. Пять компаний на неё.",
+    rhino: "Мгновенная смета — до 60 сек",
+    others: [
+      { name: "Компания A", time: "15 мин" },
+      { name: "Компания B", time: "1 час" },
+      { name: "Компания C", time: "Завтра" },
+      { name: "Компания D", time: "Нет ответа" },
+    ],
+  },
+  delay: {
+    title: "За лид вы уже заплатили.",
+    sub: "Не теряйте его после клика.",
+    oldLabel: "Пауза",
+    newLabel: "Rhino Lab",
+    old: ["Трафик", "Лид", "Сайт", "Ожидание", "Конкурент берёт"],
+    neu: ["Трафик", "Rhino Lab", "Смета сразу", "CRM", "Алерт сейлу", "Дожим"],
+  },
+  meet: {
+    title: "Meet Rhino Lab.",
+    line: "Estimator + CRM + Follow-Up",
+    sub: "Смета. Захват. Дожим.",
+  },
+  steps3: {
+    kicker: "Как это работает",
+    items: [
+      { n: "01", title: "Клиент получает смету сразу", body: "Тип работы, размер, опции — цифра в телефоне." },
+      { n: "02", title: "Rhino Lab забирает весь лид", body: "Имя, телефон, адрес, что хотели. В карточке. Не на автоответчике." },
+      { n: "03", title: "Команда знает, кому звонить", body: "И что именно нужно — до того, как возьмёт сосед." },
+    ],
+  },
+  estBlock: {
+    title: "Ответьте, пока они ещё на вашем сайте.",
+    cta: "ПОПРОБОВАТЬ ОЦЕНЩИК →",
+  },
+  crmSell: {
+    title: "Продажник не должен звонить вслепую.",
+    call: "Звоните, пока они ещё думают об этом проекте.",
+    name: "David Smith",
+    job: "Cedar Fence",
+    size: "180 LF",
+    extras: "2 Gates",
+    estimate: "$8,400–$9,600",
+    source: "Google Ads",
+    submitted: "34 сек назад",
+  },
+  follow: {
+    title: "Не записались сегодня? Не теряйте завтра.",
+    items: [
+      "Напоминание о смете",
+      "Дожим лида",
+      "Уведомление сейлу",
+      "Стадия в CRM",
+      "История клиента",
+    ],
+  },
+  roi: {
+    title: "Rhino Lab не обязан перестроить бизнес. Достаточно спасти одну работу.",
+    avg: "$7,500",
+    avgLabel: "Средний заказ",
+    setup: "$950",
+    setupLabel: "Запуск Rhino Base",
+    line: "Одна возвращённая работа окупает Rhino Lab несколько раз.",
+  },
+  trust: {
+    title: "Для живых home-service компаний.",
+    privacyTitle: "Бизнес остаётся ваш.",
+    privacy: "Ваши лиды. Ваши цены. Ваши данные. Никогда не отдаём другому подрядчику.",
+    cases: [
+      { who: "Fence contractor — Seattle, WA", note: "Имя клиента скрыто по просьбе" },
+      { who: "Deck & outdoor living — Pacific Northwest", note: "Имя клиента скрыто по просьбе" },
     ],
   },
   stories: {
@@ -1087,18 +1300,18 @@ const ru: Messages = {
   pricing: {
     kicker: "Цены",
     title: "Два пакета.",
-    body: "Начните с Base. Перейдите на Pro, когда нужна полная витрина бренда.",
+    body: "Начните с Base. Pro — когда весь путь клиента должен продавать.",
     frame:
-      "Base ловит лид. Pro становится цифровым продавцом. Ultimate сам генерирует трафик — вы перестаёте покупать имена.",
+      "Base ловит лид. Pro становится цифровым продавцом.",
     setup: "Setup",
     month: "/мес",
     popular: "Начни отсюда",
-    startHere: "Утечка закрывается здесь.",
-    whenReady: "Когда готов к трафику",
+    startHere: "Перестаньте терять лиды.",
+    whenReady: "Весь путь как продажа",
     base: {
       name: "Rhino Base",
-      title: "Поймайте лид, который уже звонит.",
-      tag: "Оценщик + CRM. Утечка закрывается здесь.",
+      title: "Перестаньте терять лиды.",
+      tag: "Перестаньте терять лиды.",
       cta: "НАЧАТЬ С BASE",
       features: [
         "Брендированный мгновенный оценщик",
@@ -1112,8 +1325,8 @@ const ru: Messages = {
     },
     pro: {
       name: "Rhino Pro",
-      title: "Цифровой продавец, который не уходит домой.",
-      tag: "Всё из Base — плюс бренд, который запоминают.",
+      title: "Весь путь клиента — как отдел продаж.",
+      tag: "Весь путь клиента — как отдел продаж.",
       cta: "НАЧАТЬ С PRO",
       features: [
         "Всё из Rhino Base",
@@ -1143,10 +1356,10 @@ const ru: Messages = {
     },
   },
   about: {
-    kicker: "Кто это сделал",
+    kicker: "Основатель",
     name: "David Zuev",
-    p1: "Более семи лет опыта. Сотни клиентов. Свыше двухсот тысяч подписчиков в Instagram, YouTube и TikTok.",
-    p2: "Это не придумано в коворкинге. Я работаю внутри fence-компании. Знаю пропущенный звонок, пустой выезд, лид, который умер в фургоне. Rhino Lab — система, которую я хотел на каждой машине: контент, оценщик, CRM, лиды к продаже.",
+    p1: "Собрано внутри живого home-service — не в инкубаторе стартапов.",
+    p2: "Rhino Lab вырос из реальных продаж, маркетинга, лидов и работы подрядчика. Не из слайда.",
     years: "7+ лет",
     yearsSub: "в деле",
     clients: "Сотни",
@@ -1178,32 +1391,48 @@ const ru: Messages = {
     ],
   },
   faq: {
-    kicker: "Прямые ответы",
-    title: "Что спрашивают владельцы перед покупкой.",
+    kicker: "FAQ",
+    title: "Что спрашивают перед покупкой.",
     items: [
       {
-        q: "У меня уже есть сайт. Зачем это?",
-        a: "Сайт, который просто висит, не пишет клиенту за 60 секунд. Rhino Lab — путь от первого тапа до карточки в CRM, готовой к продаже. Не ещё одна страница «позвоните нам».",
+        q: "Насколько точные сметы?",
+        a: "По вашей книге цен. Диапазон, не договор. Финальную цену ставите вы после выезда.",
       },
       {
-        q: "Я не технарь.",
-        a: "Вам не нужно открывать дашборд, чтобы это работало. Им приходит ссылка. Вам приходит лид. Если они замолчат — дожим уходит сам.",
+        q: "Можно менять цены?",
+        a: "Да. Материалы, работа, опции — вы правите книгу. Оценщик берёт то, что вы задали.",
       },
       {
-        q: "У меня один профиль — заборы, террасы, крыши.",
-        a: "В этом и смысл. Ваши прайсы, ваши материалы, ваш бренд. Это не общая форма. Это ваша книга цен на автопилоте.",
+        q: "Сработает с моим сайтом?",
+        a: "Да. Это ссылка. На сайт, в рекламу, в био. Весь сайт переделывать не надо.",
       },
       {
-        q: "Чем это лучше Angi или рекламы в Facebook?",
-        a: "Там вы арендуете имя и платите снова в следующем месяце. Ultimate строит контент и дистрибуцию, которые ваши. Base и Pro не дают умереть лидам, которые уже звонят.",
+        q: "Надо менять текущую CRM?",
+        a: "Нет. В каждом оценщике уже своя CRM. Старую можно оставить — чаще хватает этой карточки.",
       },
       {
-        q: "Что после сметы?",
-        a: "Они отвечают на 3–5 вопросов, кидают фото и попадают в CRM. Если нет записи — SMS-дожим идёт пять дней. Сумма сделки на одной карточке.",
+        q: "Кому принадлежат данные клиентов?",
+        a: "Вам. Лиды, цены, записи — ваши. Мы не продаём и не отдаём другому подрядчику.",
       },
       {
-        q: "Надо сразу брать Ultimate?",
-        a: "Нет. Большинство начинает с Base или Pro — закрыть утечку. Ultimate берут, когда нужна машина, которая ещё и трафик генерит.",
+        q: "Команда продаж видит лиды?",
+        a: "Да. Карточка для того, кто берёт трубку.",
+      },
+      {
+        q: "Клиент всё ещё может вызвать замерщика?",
+        a: "Да. Цифра на телефоне открывает разговор. Выезд закрывает работу.",
+      },
+      {
+        q: "Сколько занимает запуск?",
+        a: "Созвон, сборка, лиды. Base — дни, не месяцы.",
+      },
+      {
+        q: "Подойдёт для террас, крыш, ландшафта, HVAC и другого home-service?",
+        a: "Да. Если считаете по прайсу — этот прайс можно поставить на автомат.",
+      },
+      {
+        q: "Если после выезда цена изменится?",
+        a: "Так и бывает. Оценщик — первый ответ, не последний счёт.",
       },
     ],
   },
@@ -1218,12 +1447,12 @@ const ru: Messages = {
   compare: "Старый стек сжигает $30,000+ в месяц. Rhino — от $950.",
   crmHeading: "Лид сам падает в карточку",
   contentHeading: "AI-видео. Живые просмотры.",
-  tryDemo: "Попробовать Rhino Lab Estimator",
+  tryDemo: "ПОПРОБОВАТЬ ОЦЕНЩИК →",
   orderPlan: "Запросить этот план",
   close: {
-    title: "Следующий лид уже кому-то звонит. Пусть это будете вы.",
-    body: "Попробуйте оценщик за 60 секунд. Или расскажите о компании — подберём план.",
-    cta: "ПОПРОБОВАТЬ ОЦЕНЩИК",
+    title: "Следующий лид, скорее всего, уже спрашивает другого подрядчика.",
+    body: "Дайте ответ раньше конкурента.",
+    cta: "BUILD MY RHINO LAB →",
     talk: "Написать в Rhino Lab",
   },
   lead: {

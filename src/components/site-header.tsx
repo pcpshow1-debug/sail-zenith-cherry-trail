@@ -12,10 +12,10 @@ export function SiteHeader() {
 
   const nav = [
     { href: "/#estimator", label: t.nav.estimator },
+    { href: "/#how", label: t.nav.howItWorks },
     { href: "/#crm", label: t.estimatorJobs.crm },
     { href: "/#pricing", label: t.nav.pricing },
     { href: "/#faq", label: t.nav.faq },
-    { href: "/#about", label: t.nav.about },
   ];
 
   const LangToggle = ({ className }: { className?: string }) => (

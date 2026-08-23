@@ -7,10 +7,8 @@ import { AssetFrame } from "@/components/asset-frame";
 import { HowEstimatorFlip } from "@/components/how-estimator-flip";
 import { PhoneStage } from "@/components/device-stage";
 import { RaceHero } from "@/components/race-hero";
-import { BurnCounter } from "@/components/burn-counter";
 import { LeadCaptureModal } from "@/components/lead-capture-modal";
 import { SeoSync } from "@/components/seo-sync";
-import { SystemCarousel } from "@/components/system-carousel";
 import { StickyCta } from "@/components/sticky-cta";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 import { estimatorUrl } from "@/lib/estimator";
@@ -80,129 +78,154 @@ function HomePage() {
 
         <section
           className="section-pad section-y"
-          data-slide="burn"
-          data-slide-label="Traditional way"
+          data-slide="compete"
+          data-slide-label="Same lead"
         >
-          <div className="container-site mx-auto max-w-4xl space-y-8">
+          <div className="container-site mx-auto max-w-2xl space-y-8">
             <div className="space-y-3 text-center">
-              <h2 className="text-balance text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
-                <span className="text-danger">{t.burn.title}</span>{" "}
-                <span className="text-fg">{t.burn.notWorking}</span>
-              </h2>
-              <p className="text-lg font-semibold text-fg sm:text-xl">
-                {t.burn.model}
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-danger">
+                {t.compete.kicker}
               </p>
+              <Heading>{t.compete.title}</Heading>
+              <p className="text-lg font-semibold text-fg">{t.compete.same}</p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <article className="rounded-2xl border border-danger/25 bg-bg-elevated p-5">
-                <p className="text-sm font-bold uppercase tracking-wide text-muted">
-                  {t.burn.smm}
-                </p>
-                <BurnCounter to={6000} />
-                <p className="mt-1 text-sm text-muted">{t.burn.smmNote}</p>
-              </article>
-              <article className="rounded-2xl border border-danger/25 bg-bg-elevated p-5">
-                <p className="text-sm font-bold uppercase tracking-wide text-muted">
-                  {t.burn.sales}
-                </p>
-                <BurnCounter to={8000} />
-                <p className="mt-1 text-sm text-muted">{t.burn.salesNote}</p>
-              </article>
-              <article className="rounded-2xl border border-danger/25 bg-bg-elevated p-5">
-                <p className="text-sm font-bold uppercase tracking-wide text-muted">
-                  {t.burn.site}
-                </p>
-                <BurnCounter to={15000} suffix="+" />
-                <p className="mt-1 text-sm text-muted">{t.burn.siteNote}</p>
-              </article>
-              <article className="rounded-2xl border border-danger/25 bg-bg-elevated p-5">
-                <p className="text-sm font-bold uppercase tracking-wide text-muted">
-                  {t.burn.ads}
-                </p>
-                <BurnCounter to={20000} suffix="+" />
-                <p className="mt-2 text-sm text-muted">{t.burn.adsNote}</p>
-              </article>
-            </div>
-            <div className="text-center">
-              <BurnCounter to={30000} suffix="+" />
-              <p className="mt-1 text-sm font-bold uppercase tracking-[0.16em] text-danger">
-                {t.burn.total}
-              </p>
-            </div>
+            <ul className="space-y-2">
+              {t.compete.others.map((row) => (
+                <li
+                  key={row.name}
+                  className="flex items-center justify-between rounded-2xl border border-border bg-bg-elevated px-5 py-4"
+                >
+                  <span className="font-semibold text-muted">{row.name}</span>
+                  <span className="font-mono text-sm font-bold uppercase text-danger">
+                    {row.time}
+                  </span>
+                </li>
+              ))}
+              <li className="flex items-center justify-between rounded-2xl border border-accent/40 bg-primary-soft px-5 py-5">
+                <span className="flex items-center gap-3 font-extrabold text-fg">
+                  <img
+                    src="/rhino/logo-mark.jpg?v=6"
+                    alt=""
+                    className="h-9 w-9 rounded-lg object-cover"
+                    width={36}
+                    height={36}
+                  />
+                  Rhino Lab
+                </span>
+                <span className="text-right font-bold text-accent">{t.compete.rhino}</span>
+              </li>
+            </ul>
           </div>
         </section>
 
         <section
           className="section-pad section-y bg-bg-elevated"
-          data-slide="leak"
-          data-slide-label="Where the lead dies"
+          data-slide="delay"
+          data-slide-label="The delay"
         >
-          <div className="container-site mx-auto max-w-4xl space-y-8">
+          <div className="container-site mx-auto max-w-3xl space-y-8">
             <div className="space-y-3 text-center">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-danger">
-                {t.leak.kicker}
-              </p>
-              <h2 className="text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">
-                {t.leak.title}
-              </h2>
-              <p className="text-lg font-semibold text-fg">{t.leak.note}</p>
+              <Heading>{t.delay.title}</Heading>
+              <p className="text-xl font-semibold text-fg">{t.delay.sub}</p>
             </div>
-            <ol className="grid gap-3 sm:grid-cols-4">
-              {t.leak.steps.map((step, i) => (
+            <div className="grid gap-4 md:grid-cols-2">
+              <article className="rounded-2xl border border-danger/30 bg-white p-5">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-danger">
+                  {t.delay.oldLabel}
+                </p>
+                <ol className="mt-4 space-y-2">
+                  {t.delay.old.map((step, i) => (
+                    <li key={step} className="flex items-center gap-2 text-base font-semibold">
+                      <span className="font-mono text-danger">{i + 1}</span>
+                      <span className={i === t.delay.old.length - 1 ? "text-danger" : "text-fg"}>
+                        {step}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+              <article className="rounded-2xl border border-accent/40 bg-white p-5">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">
+                  {t.delay.newLabel}
+                </p>
+                <ol className="mt-4 space-y-2">
+                  {t.delay.neu.map((step, i) => (
+                    <li key={step} className="flex items-center gap-2 text-base font-semibold text-fg">
+                      <span className="font-mono text-accent">{i + 1}</span>
+                      {step}
+                    </li>
+                  ))}
+                </ol>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="section-pad section-y"
+          data-slide="meet"
+          data-slide-label="Meet Rhino Lab"
+        >
+          <div className="container-site mx-auto max-w-2xl space-y-4 text-center">
+            <img
+              src="/rhino/logo-mark.jpg?v=6"
+              alt=""
+              className="mx-auto h-16 w-16 rounded-2xl object-cover"
+              width={64}
+              height={64}
+            />
+            <h2 className="text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">
+              {t.meet.title}
+            </h2>
+            <p className="text-2xl font-extrabold text-accent">{t.meet.line}</p>
+            <p className="text-lg text-muted">{t.meet.sub}</p>
+          </div>
+        </section>
+
+        <section
+          id="how"
+          className="section-pad section-y bg-bg-elevated"
+          data-slide="steps"
+        >
+          <div className="container-site mx-auto max-w-3xl space-y-8">
+            <p className="text-center text-sm font-bold uppercase tracking-[0.2em] text-accent">
+              {t.steps3.kicker}
+            </p>
+            <ol className="space-y-4">
+              {t.steps3.items.map((step) => (
                 <li
-                  key={step.t}
-                  className={`rounded-2xl border px-4 py-5 text-center ${
-                    i === t.leak.steps.length - 1
-                      ? "border-danger/40 bg-white"
-                      : "border-border bg-bg"
-                  }`}
+                  key={step.n}
+                  className="rounded-2xl border border-border bg-white px-5 py-6"
                 >
-                  <p
-                    className={`font-mono text-2xl font-extrabold ${
-                      i === t.leak.steps.length - 1 ? "text-danger" : "text-accent"
-                    }`}
-                  >
-                    {step.t}
-                  </p>
-                  <p className="mt-2 text-base font-semibold text-fg">{step.line}</p>
+                  <p className="font-mono text-sm font-bold text-accent">{step.n}</p>
+                  <h3 className="mt-2 text-xl font-extrabold text-fg">{step.title}</h3>
+                  <p className="mt-2 text-base text-muted">{step.body}</p>
                 </li>
               ))}
             </ol>
           </div>
         </section>
 
-        <SystemCarousel appUrl={appUrl} onTalk={() => openLead("stories")} />
-
         <section
           id="estimator"
           className="section-pad section-y scroll-mt-20"
           data-slide="estimator"
-          data-slide-label="What's the solution"
         >
           <div className="container-site mx-auto grid items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-16">
             <div className="mx-auto max-w-lg space-y-5 text-center md:mx-0 md:text-left">
-              <img
-                src="/rhino/logo-mark.jpg?v=6"
-                alt=""
-                className="mx-auto h-14 w-14 rounded-2xl object-cover md:mx-0"
-                width={56}
-                height={56}
-              />
-              <p className="text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">
-                {t.estimatorJobs.ask}
-              </p>
-              <p className="text-2xl font-extrabold tracking-tight text-accent sm:text-3xl">
-                {t.estimatorJobs.name}
-              </p>
+              <h2 className="text-3xl font-extrabold tracking-tight text-fg sm:text-4xl">
+                {t.estBlock.title}
+              </h2>
+              <p className="text-base text-muted">{t.howWorks.body}</p>
               <a
                 href={appUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-track="try-estimator"
-                data-track-label="Try estimator button"
+                data-track-label="Estimator section"
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-white hover:bg-primary sm:w-auto"
               >
-                {t.tryDemo}
+                {t.estBlock.cta}
                 <ArrowRight className="size-4" />
               </a>
             </div>
@@ -219,39 +242,14 @@ function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute bottom-[8%] right-[7%] z-10 h-[5.6%] min-h-10 w-[38%] rounded-xl"
-                  aria-label={t.tryDemo}
+                  aria-label={t.estBlock.cta}
                   data-track="try-estimator"
-                  data-track-label="Try estimator"
+                  data-track-label="Try estimator overlay"
                 />
               </div>
             </PhoneStage>
           </div>
-        </section>
-
-        <section
-          id="how"
-          className="section-pad section-y bg-bg-elevated"
-          data-slide="how-estimator"
-          data-slide-label="How the estimator works"
-        >
-          <div className="container-site mx-auto grid items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-16">
-            <div className="mx-auto max-w-md space-y-5 text-center md:mx-0 md:text-left">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
-                {t.howWorks.kicker}
-              </p>
-              <h2 className="text-3xl font-extrabold tracking-tight text-fg sm:text-4xl">
-                {t.howWorks.title}
-              </h2>
-              <p className="text-base text-muted">{t.howWorks.body}</p>
-              <ol className="space-y-2 text-left">
-                {t.howWorks.steps.map((step, i) => (
-                  <li key={step} className="flex gap-3 text-base font-semibold text-fg">
-                    <span className="font-mono text-accent">{i + 1}.</span>
-                    {step}
-                  </li>
-                ))}
-              </ol>
-            </div>
+          <div className="container-site mx-auto mt-10 max-w-md">
             <PhoneStage>
               <HowEstimatorFlip
                 alt={t.howWorks.title}
@@ -262,90 +260,26 @@ function HomePage() {
         </section>
 
         <section
-          className="section-pad section-y"
-          data-slide="replaces"
-          data-slide-label="What it does"
-        >
-          <div className="container-site mx-auto max-w-3xl space-y-4">
-            <article className="rounded-2xl border border-border bg-bg-elevated px-5 py-6">
-              <h3 className="text-2xl font-bold uppercase tracking-tight text-fg sm:text-3xl">
-                {t.estimatorJobs.salesman}
-              </h3>
-              <p className="mt-3 text-lg font-semibold text-fg">
-                {t.estimatorJobs.first}
-              </p>
-              <p className="mt-2 text-base text-muted">{t.estimatorJobs.follow}</p>
-            </article>
-            <article className="rounded-2xl border border-border bg-bg-elevated px-5 py-6">
-              <h3 className="text-2xl font-bold uppercase tracking-tight text-fg sm:text-3xl">
-                {t.estimatorJobs.website}
-              </h3>
-              <p className="mt-3 text-lg font-semibold text-fg">
-                {t.estimatorJobs.remember}
-              </p>
-              <p className="mt-2 text-base text-muted">
-                {t.estimatorJobs.experience}
-              </p>
-            </article>
-            <article className="rounded-2xl border border-border bg-bg-elevated px-5 py-6">
-              <h3 className="text-2xl font-bold uppercase tracking-tight text-fg sm:text-3xl">
-                {t.estimatorJobs.upsell}
-              </h3>
-              <p className="mt-3 text-lg text-muted">
-                {t.estimatorJobs.upsellBody}
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section
-          className="section-pad pb-14 sm:pb-20"
-          data-slide="be-first"
-          data-slide-label="Be the first"
-        >
-          <div className="container-site mx-auto max-w-xl space-y-4">
-            <AssetFrame
-              src="/rhino/reach-the-lead-first.mp4?v=6"
-              poster="/rhino/reach-the-lead-first.jpg?v=6"
-              alt="Reach the lead first"
-              className="border-accent/30 bg-[#e8f1fb] shadow-md"
-            />
-            <a
-              href={appUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-track="try-estimator"
-              data-track-label="Try estimator hand"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-white hover:bg-primary"
-            >
-              {t.tryDemo}
-              <ArrowRight className="size-4" />
-            </a>
-          </div>
-        </section>
-
-        <section
           id="crm"
-          className="section-pad section-y"
+          className="section-pad section-y bg-bg-elevated"
           data-slide="crm-block"
-          data-slide-label="CRM"
         >
           <div className="container-site mx-auto grid items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-16">
             <div className="mx-auto max-w-md space-y-5 text-center md:mx-0 md:text-left">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
-                {t.crm.kicker}
-              </p>
-              <Heading className="text-center md:text-left">{t.crm.title}</Heading>
-              <p className="text-base font-semibold text-fg">{t.estimatorJobs.crmBody}</p>
-              <p className="text-base text-muted">{t.crm.body}</p>
-              <ul className="space-y-2 text-left">
-                {t.crm.points.map((point) => (
-                  <li key={point.title} className="text-base">
-                    <span className="font-bold text-fg">{point.title}.</span>{" "}
-                    <span className="text-muted">{point.body}</span>
-                  </li>
-                ))}
-              </ul>
+              <Heading className="text-center md:text-left">{t.crmSell.title}</Heading>
+              <article className="rounded-2xl border border-border bg-white p-5 text-left shadow-sm">
+                <p className="text-xl font-extrabold text-fg">{t.crmSell.name}</p>
+                <p className="mt-1 text-lg font-semibold text-fg">{t.crmSell.job}</p>
+                <p className="mt-3 text-base text-fg">{t.crmSell.size}</p>
+                <p className="text-base text-fg">{t.crmSell.extras}</p>
+                <p className="mt-3 text-base">
+                  <span className="text-muted">Estimated project: </span>
+                  <span className="font-bold text-accent">{t.crmSell.estimate}</span>
+                </p>
+                <p className="mt-1 text-sm text-muted">Source: {t.crmSell.source}</p>
+                <p className="text-sm text-muted">Submitted: {t.crmSell.submitted}</p>
+              </article>
+              <p className="text-lg font-semibold text-fg">{t.crmSell.call}</p>
             </div>
             <PhoneStage>
               <AssetFrame
@@ -358,11 +292,68 @@ function HomePage() {
           </div>
         </section>
 
+        <section id="follow" className="section-pad section-y" data-slide="follow">
+          <div className="container-site mx-auto max-w-2xl space-y-8">
+            <Heading>{t.follow.title}</Heading>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {t.follow.items.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-2xl border border-border bg-bg-elevated px-5 py-4 text-base font-semibold"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="section-pad section-y bg-bg-elevated" data-slide="roi">
+          <div className="container-site mx-auto max-w-2xl space-y-8 text-center">
+            <Heading>{t.roi.title}</Heading>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-border bg-white px-5 py-6">
+                <p className="text-4xl font-extrabold text-fg">{t.roi.avg}</p>
+                <p className="mt-1 text-sm font-semibold uppercase text-muted">
+                  {t.roi.avgLabel}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-accent/30 bg-white px-5 py-6">
+                <p className="text-4xl font-extrabold text-accent">{t.roi.setup}</p>
+                <p className="mt-1 text-sm font-semibold uppercase text-muted">
+                  {t.roi.setupLabel}
+                </p>
+              </div>
+            </div>
+            <p className="text-lg font-semibold text-fg">{t.roi.line}</p>
+          </div>
+        </section>
+
+        <section className="section-pad section-y" data-slide="trust">
+          <div className="container-site mx-auto max-w-2xl space-y-8">
+            <Heading>{t.trust.title}</Heading>
+            <ul className="space-y-3">
+              {t.trust.cases.map((item) => (
+                <li
+                  key={item.who}
+                  className="rounded-2xl border border-border bg-bg-elevated px-5 py-5"
+                >
+                  <p className="font-bold text-fg">{item.who}</p>
+                  <p className="mt-1 text-sm text-muted">{item.note}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="rounded-2xl border border-accent/30 bg-primary-soft px-5 py-6">
+              <p className="text-lg font-extrabold text-fg">{t.trust.privacyTitle}</p>
+              <p className="mt-2 text-base text-fg">{t.trust.privacy}</p>
+            </div>
+          </div>
+        </section>
+
         <section
           id="pricing"
-          className="section-pad section-y"
+          className="section-pad section-y bg-bg-elevated"
           data-slide="pricing"
-          data-slide-label="Pricing"
         >
           <div className="container-site mx-auto space-y-8">
             <Heading>{t.pricing.kicker}</Heading>
@@ -406,7 +397,7 @@ function HomePage() {
                     </div>
                   </div>
                   <ul className="space-y-2 text-sm">
-                    {t.pricing.base.features.map((item) => (
+                    {t.pricing.base.features.slice(0, 5).map((item) => (
                       <li key={item} className="flex gap-2">
                         <Check className="mt-0.5 size-4 shrink-0 text-accent" />
                         {item}
@@ -435,6 +426,7 @@ function HomePage() {
                 </PhoneStage>
                 <div className="mt-5 w-full max-w-[320px] space-y-4">
                   <h3 className="text-2xl font-bold">{t.pricing.pro.name}</h3>
+                  <p className="text-sm font-semibold text-fg">{t.pricing.pro.tag}</p>
                   <div className="flex flex-wrap items-end gap-x-4">
                     <div>
                       <p className="text-3xl font-bold">$2,300</p>
@@ -450,7 +442,7 @@ function HomePage() {
                     </div>
                   </div>
                   <ul className="space-y-2 text-sm">
-                    {t.pricing.pro.features.map((item) => (
+                    {t.pricing.pro.features.slice(0, 5).map((item) => (
                       <li key={item} className="flex gap-2">
                         <Check className="mt-0.5 size-4 shrink-0 text-accent" />
                         {item}
@@ -471,25 +463,28 @@ function HomePage() {
           </div>
         </section>
 
-        <section
-          className="section-pad section-y"
-          data-slide="onboard"
-          data-slide-label="After you pay"
-        >
-          <div className="container-site mx-auto max-w-4xl space-y-8">
-            <Heading>{t.onboard.title}</Heading>
-            <ol className="grid gap-4 sm:grid-cols-3">
-              {t.onboard.steps.map((step, i) => (
-                <li
-                  key={step.title}
-                  className="rounded-2xl border border-border bg-bg px-5 py-6"
-                >
-                  <p className="font-mono text-sm font-bold text-accent">0{i + 1}</p>
-                  <h3 className="mt-3 text-xl font-extrabold text-fg">{step.title}</h3>
-                  <p className="mt-2 text-base text-muted">{step.body}</p>
-                </li>
+        <section id="faq" className="section-pad section-y" data-slide="faq">
+          <div className="container-site mx-auto max-w-3xl space-y-8">
+            <div className="space-y-2 text-center">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
+                {t.faq.kicker}
+              </p>
+              <Heading>{t.faq.title}</Heading>
+            </div>
+            <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-bg-elevated">
+              {t.faq.items.map((item) => (
+                <details key={item.q} className="group px-5 py-4">
+                  <summary className="cursor-pointer list-none text-left text-lg font-bold text-fg marker:hidden [&::-webkit-details-marker]:hidden">
+                    <span className="flex items-start justify-between gap-4">
+                      {item.q}
+                      <span className="mt-1 text-accent group-open:hidden">+</span>
+                      <span className="mt-1 hidden text-accent group-open:inline">–</span>
+                    </span>
+                  </summary>
+                  <p className="mt-3 max-w-2xl text-base text-muted">{item.a}</p>
+                </details>
               ))}
-            </ol>
+            </div>
           </div>
         </section>
 
@@ -560,55 +555,30 @@ function HomePage() {
           </div>
         </section>
 
-        <section id="faq" className="section-pad section-y" data-slide="faq">
-          <div className="container-site mx-auto max-w-3xl space-y-8">
-            <div className="space-y-2 text-center">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
-                {t.faq.kicker}
-              </p>
-              <Heading>{t.faq.title}</Heading>
-            </div>
-            <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-bg-elevated">
-              {t.faq.items.map((item) => (
-                <details key={item.q} className="group px-5 py-4">
-                  <summary className="cursor-pointer list-none text-left text-lg font-bold text-fg marker:hidden [&::-webkit-details-marker]:hidden">
-                    <span className="flex items-start justify-between gap-4">
-                      {item.q}
-                      <span className="mt-1 text-accent group-open:hidden">+</span>
-                      <span className="mt-1 hidden text-accent group-open:inline">–</span>
-                    </span>
-                  </summary>
-                  <p className="mt-3 max-w-2xl text-base text-muted">{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section-pad section-y bg-bg-elevated" data-slide="close">
+        <section className="section-pad section-y" data-slide="close">
           <div className="container-site mx-auto max-w-2xl space-y-5 text-center">
             <h2 className="text-3xl font-extrabold tracking-tight text-fg sm:text-4xl">
               {t.close.title}
             </h2>
             <p className="text-lg text-muted">{t.close.body}</p>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => openLead("close")}
+                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-fg px-6 text-sm font-semibold text-white sm:w-auto"
+              >
+                {t.close.cta}
+              </button>
               <a
                 href={appUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-track="try-estimator"
                 data-track-label="Close try estimator"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-semibold text-white sm:w-auto"
-              >
-                {t.close.cta}
-              </a>
-              <button
-                type="button"
-                onClick={() => openLead("close")}
                 className="inline-flex h-12 w-full items-center justify-center rounded-full border border-border px-6 text-sm font-semibold sm:w-auto"
               >
-                {t.close.talk}
-              </button>
+                {t.estBlock.cta}
+              </a>
             </div>
           </div>
         </section>

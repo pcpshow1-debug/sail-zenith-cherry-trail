@@ -28,7 +28,7 @@ export function SeoSync() {
               name: "Rhino Lab",
               applicationCategory: "BusinessApplication",
               operatingSystem: "Web",
-              url: "https://www.zuevs.com/",
+              url: "https://www.rhinolab.app/",
               description: t.seo.description,
               offers: {
                 "@type": "AggregateOffer",

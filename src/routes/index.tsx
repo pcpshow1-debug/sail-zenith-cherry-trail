@@ -162,61 +162,24 @@ function HomePage() {
         </section>
 
         <section
-          className="section-pad section-y"
-          data-slide="meet"
-          data-slide-label="Meet Rhino Lab"
-        >
-          <div className="container-site mx-auto max-w-2xl space-y-4 text-center">
-            <img
-              src="/rhino/logo-mark.jpg?v=6"
-              alt=""
-              className="mx-auto h-16 w-16 rounded-2xl object-cover"
-              width={64}
-              height={64}
-            />
-            <h2 className="text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">
-              {t.meet.title}
-            </h2>
-            <p className="text-2xl font-extrabold text-accent">{t.meet.line}</p>
-            <p className="text-lg text-muted">{t.meet.sub}</p>
-          </div>
-        </section>
-
-        <section
-          id="how"
-          className="section-pad section-y bg-bg-elevated"
-          data-slide="steps"
-        >
-          <div className="container-site mx-auto max-w-3xl space-y-8">
-            <p className="text-center text-sm font-bold uppercase tracking-[0.2em] text-accent">
-              {t.steps3.kicker}
-            </p>
-            <ol className="space-y-4">
-              {t.steps3.items.map((step) => (
-                <li
-                  key={step.n}
-                  className="rounded-2xl border border-border bg-white px-5 py-6"
-                >
-                  <p className="font-mono text-sm font-bold text-accent">{step.n}</p>
-                  <h3 className="mt-2 text-xl font-extrabold text-fg">{step.title}</h3>
-                  <p className="mt-2 text-base text-muted">{step.body}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section
           id="estimator"
           className="section-pad section-y scroll-mt-20"
           data-slide="estimator"
         >
           <div className="container-site mx-auto grid items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-16">
             <div className="mx-auto max-w-lg space-y-5 text-center md:mx-0 md:text-left">
-              <h2 className="text-3xl font-extrabold tracking-tight text-fg sm:text-4xl">
-                {t.estBlock.title}
+              <img
+                src="/rhino/logo-mark.jpg?v=6"
+                alt=""
+                className="mx-auto h-14 w-14 rounded-2xl object-cover md:mx-0"
+                width={56}
+                height={56}
+              />
+              <h2 className="text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">
+                {t.meet.title}
               </h2>
-              <p className="text-base text-muted">{t.howWorks.body}</p>
+              <p className="text-2xl font-extrabold text-accent">{t.meet.line}</p>
+              <p className="text-lg text-muted">{t.meet.sub}</p>
               <a
                 href={appUrl}
                 target="_blank"
@@ -249,7 +212,28 @@ function HomePage() {
               </div>
             </PhoneStage>
           </div>
-          <div className="container-site mx-auto mt-10 max-w-md">
+        </section>
+
+        <section
+          id="how"
+          className="section-pad section-y bg-bg-elevated"
+          data-slide="steps"
+        >
+          <div className="container-site mx-auto grid items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-16">
+            <div className="mx-auto max-w-md space-y-5 text-center md:mx-0 md:text-left">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
+                {t.steps3.kicker}
+              </p>
+              <ol className="space-y-4 text-left">
+                {t.steps3.items.map((step) => (
+                  <li key={step.n}>
+                    <p className="font-mono text-sm font-bold text-accent">{step.n}</p>
+                    <h3 className="mt-1 text-xl font-extrabold text-fg">{step.title}</h3>
+                    <p className="mt-1 text-base text-muted">{step.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
             <PhoneStage>
               <HowEstimatorFlip
                 alt={t.howWorks.title}

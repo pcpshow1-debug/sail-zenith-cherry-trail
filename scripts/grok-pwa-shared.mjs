@@ -6,7 +6,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-export const DEFAULT_APP_NAME = "Rhino Lab";
+export const DEFAULT_APP_NAME = "Grok App";
 export const OG_SERVICE_URL_DEFAULT = "https://og.grok.me";
 export const OG_SITE_REL_PATH = "src/lib/og/site.json";
 
@@ -158,7 +158,7 @@ export function renderInstallPageHtml(template, { host, url } = {}) {
 }
 
 export function renderWebManifest(hostHeader) {
-  const name = "Rhino Lab";
+  const name = appNameFromHost(hostHeader);
   return JSON.stringify(
     {
       name,
@@ -167,11 +167,11 @@ export function renderWebManifest(hostHeader) {
       start_url: "/",
       scope: "/",
       display: "standalone",
-      background_color: "#0b3d91",
-      theme_color: "#0b3d91",
+      background_color: "#000000",
+      theme_color: "#000000",
       icons: [
         {
-          src: "/icon-180.png",
+          src: "/__grok/icon-180.png",
           sizes: "180x180",
           type: "image/png",
         },
@@ -184,8 +184,10 @@ export function renderWebManifest(hostHeader) {
 
 export function grokPwaHeadTags(appName = DEFAULT_APP_NAME) {
   return [
-    ["manifest", '<link rel="manifest" href="/manifest.webmanifest">'],
-    ["apple-touch-icon", '<link rel="apple-touch-icon" href="/icon-180.png">'],
+    // Standalone display comes from the manifest ("display": "standalone");
+    // the legacy *-web-app-capable metas it replaces are deliberately absent.
+    ["manifest", '<link rel="manifest" href="/__grok/manifest.webmanifest">'],
+    ["apple-touch-icon", '<link rel="apple-touch-icon" href="/__grok/icon-180.png">'],
     [
       "apple-mobile-web-app-title",
       `<meta name="apple-mobile-web-app-title" content="${escapeHtml(appName)}">`,
@@ -194,7 +196,7 @@ export function grokPwaHeadTags(appName = DEFAULT_APP_NAME) {
       "apple-mobile-web-app-status-bar-style",
       '<meta name="apple-mobile-web-app-status-bar-style" content="black">',
     ],
-    ["theme-color", '<meta name="theme-color" content="#0b3d91">'],
+    ["theme-color", '<meta name="theme-color" content="#000000">'],
   ];
 }
 
@@ -226,8 +228,18 @@ export function grokXCreatorHeadTags(creator = readXCreator(), creatorId = readX
 }
 
 /** Platform "Created with Grok" banner — injected into every HTML document. */
-export function grokExtensionsHeadTags(_projectId = readGrokProjectId()) {
-  return [];
+export function grokExtensionsHeadTags(projectId = readGrokProjectId()) {
+  const id = escapeHtml(projectId);
+  const tags = [];
+  if (projectId) {
+    tags.push(`<meta name="grok-project-id" content="${id}">`);
+  }
+  tags.push(
+    `<script src="${GROK_EXTENSIONS_SCRIPT_SRC}"${
+      projectId ? ` data-project-id="${id}"` : ""
+    } defer></script>`,
+  );
+  return tags;
 }
 
 export function readOgSite(cwd = process.cwd()) {
@@ -342,25 +354,23 @@ export function grokOgHeadTags({
     tags.push(`<meta property="og:type" content="x:game">`);
   }
   if (publicHost) {
-    const asset = resolveOgCardAsset(site, cwd) || "/og.jpg";
-    const image = `https://www.zuevs.com${asset.startsWith("/") ? asset : `/${asset}`}`;
+    const asset = resolveOgCardAsset(site, cwd);
+    const custom = Boolean(asset);
+    let image = custom
+      ? `https://${publicHost}${asset.startsWith("/") ? asset : `/${asset}`}`
+      : `${ogServiceUrl()}/v1/card.png?host=${encodeURIComponent(publicHost)}&title=${encodeURIComponent(title)}`;
+    const color = !custom ? placeholderCardColor(site) : "";
+    if (color) image += `&color=${encodeURIComponent(color)}`;
     tags.push(`<meta property="og:image" content="${escapeHtml(image)}">`);
     tags.push(`<meta property="og:image:width" content="1200">`);
     tags.push(`<meta property="og:image:height" content="630">`);
-    tags.push(`<meta name="twitter:image" content="${escapeHtml(image)}">`);
     const banner = String(site.banner ?? "").trim();
     if (banner) {
-      const bannerUrl = `https://www.zuevs.com${banner.startsWith("/") ? banner : `/${banner}`}`;
+      const bannerUrl = `https://${publicHost}${banner.startsWith("/") ? banner : `/${banner}`}`;
       tags.push(`<meta property="x:game:image" content="${escapeHtml(bannerUrl)}">`);
       tags.push(`<meta property="x:game:image:width" content="1200">`);
       tags.push(`<meta property="x:game:image:height" content="264">`);
     }
-  } else {
-    const image = "https://www.zuevs.com/og.jpg";
-    tags.push(`<meta property="og:image" content="${image}">`);
-    tags.push(`<meta property="og:image:width" content="1200">`);
-    tags.push(`<meta property="og:image:height" content="630">`);
-    tags.push(`<meta name="twitter:image" content="${image}">`);
   }
   return tags;
 }
@@ -414,8 +424,7 @@ export function normalizeHeadContext(ctx = {}) {
 
 export function injectGrokPwaHead(html, ctx = {}) {
   if (typeof html !== "string") return html;
-  if (typeof ctx === "string") ctx = { appName: ctx };
-  const { site, creator, creatorId, host, cwd } = normalizeHeadContext(ctx);
+  const { site, projectId, creator, creatorId, host, cwd } = normalizeHeadContext(ctx);
   const documentTitle = titleFromDocument(html);
   const appName = resolveOgTitle(
     site,
@@ -424,19 +433,11 @@ export function injectGrokPwaHead(html, ctx = {}) {
     documentTitle,
   );
   let next = stripShareMetaTags(html);
-  next = next.replace(
-    /<meta\b[^>]*(?:name=["']grok-project-id["']|property=["']grok:app_id["'])[^>]*>/gi,
-    "",
-  );
-  next = next.replace(
-    /<script\b[^>]*grok-app-builder\/extensions\.js[^>]*>\s*<\/script>/gi,
-    "",
-  );
 
   const missing = grokPwaHeadTags(appName)
     .filter(([key]) => {
-      if (key === "manifest") return !next.includes('rel="manifest"');
-      if (key === "apple-touch-icon") return !next.includes('rel="apple-touch-icon"');
+      if (key === "manifest") return !next.includes('href="/__grok/manifest.webmanifest"');
+      if (key === "apple-touch-icon") return !next.includes('href="/__grok/icon-180.png"');
       return !next.includes(`name="${key}"`);
     })
     .map(([, tag]) => tag);
@@ -446,6 +447,18 @@ export function injectGrokPwaHead(html, ctx = {}) {
     grokOgHeadTags({ host, appName, site, documentTitle, cwd }).join(""),
   );
 
+  if (!next.includes("/grok-app-builder/extensions.js")) {
+    missing.push(...grokExtensionsHeadTags(projectId));
+  } else if (projectId && !next.includes('name="grok-project-id"')) {
+    missing.push(`<meta name="grok-project-id" content="${escapeHtml(projectId)}">`);
+  }
+  if (
+    projectId &&
+    !next.includes('property="grok:app_id"') &&
+    !next.includes("property='grok:app_id'")
+  ) {
+    missing.push(`<meta property="grok:app_id" content="${escapeHtml(projectId)}">`);
+  }
   const creatorTags = grokXCreatorHeadTags(creator, creatorId);
   if (creatorTags.length > 0) {
     const hasCreator =

@@ -193,23 +193,12 @@ function HomePage() {
               </a>
             </div>
             <PhoneStage>
-              <div className="relative">
-                <AssetFrame
-                  src="/rhino/estimate-expo.mp4?v=1"
-                  poster="/rhino/estimate-expo.jpg?v=1"
-                  alt="Estimate under 60 seconds"
-                  className="rounded-none border-0 shadow-none"
-                />
-                <a
-                  href={appUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute bottom-[8%] right-[7%] z-10 h-[5.6%] min-h-10 w-[38%] rounded-xl"
-                  aria-label={t.estBlock.cta}
-                  data-track="try-estimator"
-                  data-track-label="Try estimator overlay"
-                />
-              </div>
+              <AssetFrame
+                src="/rhino/estimate-expo.mp4?v=8"
+                poster="/rhino/estimate-expo.jpg?v=8"
+                alt="Rhino Lab estimator dashboard"
+                className="rounded-none border-0 shadow-none"
+              />
             </PhoneStage>
           </div>
         </section>

@@ -103,6 +103,12 @@ export type Messages = {
     note: string;
     steps: { t: string; line: string }[];
   };
+  stories: {
+    kicker: string;
+    slides: { tab: string; title: string; body: string; cta: string }[];
+    prev: string;
+    next: string;
+  };
   solution: {
     ask: string;
     line: string;
@@ -352,6 +358,37 @@ const en: Messages = {
       { t: "15s", line: "No price. They bounce." },
       { t: "45s", line: "Three other companies." },
       { t: "60s", line: "You lost them." },
+    ],
+  },
+  stories: {
+    kicker: "The system",
+    prev: "Previous",
+    next: "Next",
+    slides: [
+      {
+        tab: "Estimator",
+        title: "They get a price. You get the lead.",
+        body: "Job, materials, photos — while they are still on the phone.",
+        cta: "Try the estimator",
+      },
+      {
+        tab: "First touch",
+        title: "Reply in 60 seconds.",
+        body: "The company that sends a number first usually books the job.",
+        cta: "See first touch",
+      },
+      {
+        tab: "CRM",
+        title: "Every lead on one card.",
+        body: "Name, phone, address, what they wanted. Nothing on a sticky note.",
+        cta: "See the CRM",
+      },
+      {
+        tab: "Follow-up",
+        title: "If they go quiet, we text.",
+        body: "Five days of follow-up without you sitting in a dashboard.",
+        cta: "Request a plan",
+      },
     ],
   },
   solution: {
@@ -815,6 +852,37 @@ const ru: Messages = {
       { t: "15с", line: "Нет цены. Ушёл." },
       { t: "45с", line: "Ещё три компании." },
       { t: "60с", line: "Лид ваш — уже нет." },
+    ],
+  },
+  stories: {
+    kicker: "Система",
+    prev: "Назад",
+    next: "Дальше",
+    slides: [
+      {
+        tab: "Оценщик",
+        title: "Им — цена. Тебе — лид.",
+        body: "Работа, материалы, фото — пока они ещё в телефоне.",
+        cta: "Попробовать оценщик",
+      },
+      {
+        tab: "Первый контакт",
+        title: "Ответ за 60 секунд.",
+        body: "Кто первый дал цифру — тот обычно и берёт заказ.",
+        cta: "Как это выглядит",
+      },
+      {
+        tab: "CRM",
+        title: "Каждый лид на одной карточке.",
+        body: "Имя, телефон, адрес, что хотели. Не стикер в фургоне.",
+        cta: "Смотреть CRM",
+      },
+      {
+        tab: "Дожим",
+        title: "Замолчали — пишем сами.",
+        body: "Пять дней follow-up без дашборда.",
+        cta: "Запросить план",
+      },
     ],
   },
   solution: {

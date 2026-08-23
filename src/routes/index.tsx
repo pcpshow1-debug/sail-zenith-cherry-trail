@@ -10,6 +10,8 @@ import { RaceHero } from "@/components/race-hero";
 import { BurnCounter } from "@/components/burn-counter";
 import { LeadCaptureModal } from "@/components/lead-capture-modal";
 import { SeoSync } from "@/components/seo-sync";
+import { SystemCarousel } from "@/components/system-carousel";
+import { StickyCta } from "@/components/sticky-cta";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 import { estimatorUrl } from "@/lib/estimator";
 import { useLocale } from "@/lib/i18n";
@@ -65,7 +67,7 @@ function HomePage() {
   };
 
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="flex min-h-dvh flex-col pb-16 md:pb-0">
       <SeoSync />
       <SiteHeader />
       <LeadCaptureModal
@@ -168,6 +170,8 @@ function HomePage() {
             </ol>
           </div>
         </section>
+
+        <SystemCarousel appUrl={appUrl} onTalk={() => openLead("stories")} />
 
         <section
           id="estimator"
@@ -610,6 +614,7 @@ function HomePage() {
         </section>
       </main>
       <SiteFooter />
+      <StickyCta />
     </div>
   );
 }

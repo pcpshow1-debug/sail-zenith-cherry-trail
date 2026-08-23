@@ -83,7 +83,7 @@ export function SiteHeader() {
             href={appUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary sm:inline-flex"
+            className="inline-flex rounded-full bg-fg px-3 py-1.5 text-xs font-semibold text-white hover:bg-primary sm:px-4 sm:py-2 sm:text-sm"
           >
             {t.nav.tryEstimator}
           </a>

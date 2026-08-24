@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { AssetFrame } from "@/components/asset-frame";
 import { HowEstimatorFlip } from "@/components/how-estimator-flip";
 import { PhoneStage } from "@/components/device-stage";
-import { RaceHero } from "@/components/race-hero";
+import { StoryHero, NewLeadBeat } from "@/components/story-hero";
 import { LeadCaptureModal } from "@/components/lead-capture-modal";
 import { SeoSync } from "@/components/seo-sync";
 import { StickyCta } from "@/components/sticky-cta";
@@ -74,39 +74,8 @@ function HomePage() {
         source={leadSource}
       />
       <main className="flex-1">
-        <section
-          id="storyboard"
-          className="section-pad border-b border-border bg-[#f4f4f5] py-8"
-        >
-          <div className="container-site mx-auto max-w-lg space-y-4">
-            <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-danger">
-              Draft storyboard — not the live hero
-            </p>
-            <p className="text-center text-sm text-muted">
-              1 она берёт телефон · 2 Estimate · 3 смета · 4 new lead
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { src: "/storyboard/1.jpg", label: "1. Hand in" },
-                { src: "/storyboard/2.jpg", label: "2. Estimate" },
-                { src: "/storyboard/3.jpg", label: "3. Booked" },
-                { src: "/storyboard/4.jpg", label: "4. New lead" },
-              ].map((shot) => (
-                <figure key={shot.src} className="space-y-2">
-                  <img
-                    src={shot.src}
-                    alt={shot.label}
-                    className="block w-full rounded-2xl border border-border object-cover"
-                  />
-                  <figcaption className="text-center text-xs font-semibold text-muted">
-                    {shot.label}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </section>
-        <RaceHero />
+        <StoryHero />
+        <NewLeadBeat />
 
         <section
           className="section-pad section-y"

@@ -7,7 +7,6 @@ import { AssetFrame } from "@/components/asset-frame";
 import { HowEstimatorFlip } from "@/components/how-estimator-flip";
 import { PhoneStage } from "@/components/device-stage";
 import { RaceHero } from "@/components/race-hero";
-import { StoryHero, NewLeadBeat } from "@/components/story-hero";
 import { BurnCounter } from "@/components/burn-counter";
 import { LeadCaptureModal } from "@/components/lead-capture-modal";
 import { SeoSync } from "@/components/seo-sync";
@@ -77,8 +76,6 @@ function HomePage() {
       />
       <main className="flex-1">
         <RaceHero />
-        <StoryHero />
-        <NewLeadBeat />
 
         <section
           className="section-pad section-y"

@@ -87,6 +87,9 @@ export type Messages = {
     heTitle: string;
     heLine: string;
     cta: string;
+    herPhone: string;
+    yourPhone: string;
+    priced: string;
   };
   sell: {
     title: string;
@@ -388,6 +391,9 @@ const en: Messages = {
     heTitle: "Sarah Chen. Cedar fence. $12,020.",
     heLine: "The order lands on his phone.",
     cta: "Try Rhino Lab Estimator",
+    herPhone: "Her phone",
+    yourPhone: "Your phone",
+    priced: "She has a price.",
   },
   sell: {
     title: "What we sell",
@@ -982,6 +988,9 @@ const ru: Messages = {
     heTitle: "Sarah Chen. Кедр. $12,020.",
     heLine: "Заказ приходит ему на телефон.",
     cta: "Try Rhino Lab Estimator",
+    herPhone: "Её телефон",
+    yourPhone: "Ваш телефон",
+    priced: "У неё уже цена.",
   },
   sell: {
     title: "Что продаём",

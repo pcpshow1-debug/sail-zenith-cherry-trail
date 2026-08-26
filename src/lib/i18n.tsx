@@ -80,6 +80,13 @@ export type Messages = {
     notifBody: string;
     cta: string;
   };
+  story: {
+    she: string;
+    heKicker: string;
+    heTitle: string;
+    heLine: string;
+    cta: string;
+  };
   sell: {
     title: string;
     items: { title: string; body: string }[];
@@ -372,6 +379,13 @@ const en: Messages = {
     notifName: "Rhino Lab",
     notifBody: "Your vinyl fence estimate: $4,850–$5,600",
     cta: "SEE LIVE DEMO →",
+  },
+  story: {
+    she: "Sarah picks her fence.",
+    heKicker: "New lead",
+    heTitle: "Sarah Chen. Cedar fence. $12,020.",
+    heLine: "The order lands on his phone.",
+    cta: "Try Rhino Lab Estimator",
   },
   sell: {
     title: "What we sell",
@@ -958,6 +972,13 @@ const ru: Messages = {
     notifName: "Rhino Lab",
     notifBody: "Смета на виниловый забор: $4,850–$5,600",
     cta: "СМОТРЕТЬ ДЕМО →",
+  },
+  story: {
+    she: "Сара выбирает забор.",
+    heKicker: "Новый лид",
+    heTitle: "Sarah Chen. Кедр. $12,020.",
+    heLine: "Заказ приходит ему на телефон.",
+    cta: "Try Rhino Lab Estimator",
   },
   sell: {
     title: "Что продаём",

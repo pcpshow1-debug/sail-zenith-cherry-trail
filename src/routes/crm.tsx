@@ -67,12 +67,23 @@ function CrmAdmin() {
           className="w-full max-w-sm space-y-4 rounded-3xl border border-border bg-bg-elevated p-6"
           onSubmit={(e) => {
             e.preventDefault();
-            if (pin.trim().toUpperCase() === "RHINO") {
-              sessionStorage.setItem("rhino-crm-ok", "1");
-              setUnlocked(true);
-            } else {
-              setPinError(true);
-            }
+            void (async () => {
+              try {
+                const res = await fetch("/api/crm", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ pin: pin.trim() }),
+                });
+                if (!res.ok) {
+                  setPinError(true);
+                  return;
+                }
+                sessionStorage.setItem("rhino-crm-ok", "1");
+                setUnlocked(true);
+              } catch {
+                setPinError(true);
+              }
+            })();
           }}
         >
           <img
@@ -125,6 +136,11 @@ function CrmDesk({ ru }: { ru: boolean }) {
     setError("");
     try {
       const res = await fetch("/api/crm");
+      if (res.status === 401) {
+        sessionStorage.removeItem("rhino-crm-ok");
+        window.location.reload();
+        return;
+      }
       if (!res.ok) throw new Error("offline");
       setData((await res.json()) as Dashboard);
     } catch {

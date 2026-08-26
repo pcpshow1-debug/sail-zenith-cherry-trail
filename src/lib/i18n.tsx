@@ -82,6 +82,7 @@ export type Messages = {
   };
   story: {
     she: string;
+    bridge: string;
     heKicker: string;
     heTitle: string;
     heLine: string;
@@ -382,6 +383,7 @@ const en: Messages = {
   },
   story: {
     she: "Sarah picks her fence.",
+    bridge: "Then it hits his phone.",
     heKicker: "New lead",
     heTitle: "Sarah Chen. Cedar fence. $12,020.",
     heLine: "The order lands on his phone.",
@@ -975,6 +977,7 @@ const ru: Messages = {
   },
   story: {
     she: "Сара выбирает забор.",
+    bridge: "Потом это к нему.",
     heKicker: "Новый лид",
     heTitle: "Sarah Chen. Кедр. $12,020.",
     heLine: "Заказ приходит ему на телефон.",

@@ -370,13 +370,14 @@ function HomePage() {
                       </li>
                     ))}
                   </ul>
-                  <a
-                    href="mailto:info@rhinolab.app?subject=Rhino%20Base%20request&body=I%20want%20Rhino%20Base%20(%24950%20setup%20%2B%20%2460%2Fmonth)."
+                  <button
+                    type="button"
+                    onClick={() => openLead("pricing-base")}
                     data-track="package-base"
                     className="inline-flex h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-semibold text-white transition group-hover:bg-primary"
                   >
                     {t.orderPlan}
-                  </a>
+                  </button>
                 </div>
               </article>
 
@@ -413,13 +414,14 @@ function HomePage() {
                       </li>
                     ))}
                   </ul>
-                  <a
-                    href="mailto:info@rhinolab.app?subject=Rhino%20Pro%20request&body=I%20want%20Rhino%20Pro%20(%242300%20setup%20%2B%20%24190%2Fmonth)."
+                  <button
+                    type="button"
+                    onClick={() => openLead("pricing-pro")}
                     data-track="package-pro"
                     className="inline-flex h-12 w-full items-center justify-center rounded-full border border-border px-6 text-sm font-semibold transition group-hover:border-accent group-hover:bg-accent group-hover:text-white"
                   >
                     {t.orderPlan}
-                  </a>
+                  </button>
                 </div>
               </article>
             </div>

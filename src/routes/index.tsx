@@ -7,6 +7,7 @@ import { AssetFrame } from "@/components/asset-frame";
 import { HowEstimatorFlip } from "@/components/how-estimator-flip";
 import { PhoneStage } from "@/components/device-stage";
 import { StoryHero, NewLeadBeat } from "@/components/story-hero";
+import { BurnCounter } from "@/components/burn-counter";
 import { LeadCaptureModal } from "@/components/lead-capture-modal";
 import { SeoSync } from "@/components/seo-sync";
 import { StickyCta } from "@/components/sticky-cta";
@@ -76,6 +77,60 @@ function HomePage() {
       <main className="flex-1">
         <StoryHero />
         <NewLeadBeat />
+
+        <section
+          className="section-pad section-y"
+          data-slide="burn"
+          data-slide-label="Traditional way"
+        >
+          <div className="container-site mx-auto max-w-4xl space-y-8">
+            <div className="space-y-3 text-center">
+              <h2 className="text-balance text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
+                <span className="text-danger">{t.burn.title}</span>{" "}
+                <span className="text-fg">{t.burn.notWorking}</span>
+              </h2>
+              <p className="text-lg font-semibold text-fg sm:text-xl">
+                {t.burn.model}
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <article className="rounded-2xl border border-danger/25 bg-bg-elevated p-5">
+                <p className="text-sm font-bold uppercase tracking-wide text-muted">
+                  {t.burn.smm}
+                </p>
+                <BurnCounter to={6000} />
+                <p className="mt-1 text-sm text-muted">{t.burn.smmNote}</p>
+              </article>
+              <article className="rounded-2xl border border-danger/25 bg-bg-elevated p-5">
+                <p className="text-sm font-bold uppercase tracking-wide text-muted">
+                  {t.burn.sales}
+                </p>
+                <BurnCounter to={8000} />
+                <p className="mt-1 text-sm text-muted">{t.burn.salesNote}</p>
+              </article>
+              <article className="rounded-2xl border border-danger/25 bg-bg-elevated p-5">
+                <p className="text-sm font-bold uppercase tracking-wide text-muted">
+                  {t.burn.site}
+                </p>
+                <BurnCounter to={15000} suffix="+" />
+                <p className="mt-1 text-sm text-muted">{t.burn.siteNote}</p>
+              </article>
+              <article className="rounded-2xl border border-danger/25 bg-bg-elevated p-5">
+                <p className="text-sm font-bold uppercase tracking-wide text-muted">
+                  {t.burn.ads}
+                </p>
+                <BurnCounter to={20000} suffix="+" />
+                <p className="mt-2 text-sm text-muted">{t.burn.adsNote}</p>
+              </article>
+            </div>
+            <div className="text-center">
+              <BurnCounter to={30000} suffix="+" />
+              <p className="mt-1 text-sm font-bold uppercase tracking-[0.16em] text-danger">
+                {t.burn.total}
+              </p>
+            </div>
+          </div>
+        </section>
 
         <section
           className="section-pad section-y"

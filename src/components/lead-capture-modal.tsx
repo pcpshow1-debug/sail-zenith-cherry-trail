@@ -1,6 +1,5 @@
 import { useEffect, useId, useState, type ChangeEvent, type FormEvent } from "react";
 import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n";
 import { getAttribution } from "@/lib/tracking";
 
@@ -33,6 +32,16 @@ type Props = {
   onClose: () => void;
   source?: string;
 };
+
+function splitName(full: string) {
+  const trimmed = full.trim();
+  const space = trimmed.indexOf(" ");
+  if (space === -1) return { firstName: trimmed, lastName: trimmed || "—" };
+  return {
+    firstName: trimmed.slice(0, space),
+    lastName: trimmed.slice(space + 1).trim() || "—",
+  };
+}
 
 export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
   const titleId = useId();
@@ -85,8 +94,17 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
           : source === "pricing-ultimate"
             ? "Ultimate Lead Generator"
             : "";
+    const { firstName, lastName } = splitName(form.firstName);
     const payload = {
-      ...form,
+      firstName,
+      lastName,
+      phone: form.phone,
+      email: form.email,
+      city: "",
+      state: "",
+      country: "",
+      company: form.company,
+      goals: "",
       source: "rhinolab.app",
       packageName,
       ...attr,
@@ -164,99 +182,18 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
             </div>
           ) : (
             <form onSubmit={submit} className="space-y-3.5">
-              <div className="grid gap-3 sm:grid-cols-2">
-                <label className="block space-y-1.5">
-                  <span className="text-sm font-semibold text-fg">
-                    {t.lead.firstName}
-                  </span>
-                  <input
-                    required
-                    autoComplete="given-name"
-                    className={field}
-                    value={form.firstName}
-                    onChange={set("firstName")}
-                  />
-                </label>
-                <label className="block space-y-1.5">
-                  <span className="text-sm font-semibold text-fg">
-                    {t.lead.lastName}
-                  </span>
-                  <input
-                    required
-                    autoComplete="family-name"
-                    className={field}
-                    value={form.lastName}
-                    onChange={set("lastName")}
-                  />
-                </label>
-              </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <label className="block space-y-1.5">
-                  <span className="text-sm font-semibold text-fg">
-                    {t.lead.phone}
-                  </span>
-                  <input
-                    required
-                    type="tel"
-                    autoComplete="tel"
-                    className={field}
-                    value={form.phone}
-                    onChange={set("phone")}
-                  />
-                </label>
-                <label className="block space-y-1.5">
-                  <span className="text-sm font-semibold text-fg">
-                    {t.lead.email}
-                  </span>
-                  <input
-                    required
-                    type="email"
-                    autoComplete="email"
-                    className={field}
-                    value={form.email}
-                    onChange={set("email")}
-                  />
-                </label>
-              </div>
-              <div className="grid gap-3 sm:grid-cols-3">
-                <label className="block space-y-1.5">
-                  <span className="text-sm font-semibold text-fg">
-                    {t.lead.city}
-                  </span>
-                  <input
-                    autoComplete="address-level2"
-                    className={field}
-                    value={form.city}
-                    onChange={set("city")}
-                  />
-                </label>
-                <label className="block space-y-1.5">
-                  <span className="text-sm font-semibold text-fg">
-                    {t.lead.state}
-                  </span>
-                  <input
-                    autoComplete="address-level1"
-                    className={field}
-                    value={form.state}
-                    onChange={set("state")}
-                  />
-                </label>
-                <label className="block space-y-1.5">
-                  <span className="text-sm font-semibold text-fg">
-                    {t.lead.country}
-                  </span>
-                  <input
-                    autoComplete="country-name"
-                    className={field}
-                    value={form.country}
-                    onChange={set("country")}
-                  />
-                </label>
-              </div>
               <label className="block space-y-1.5">
-                <span className="text-sm font-semibold text-fg">
-                  {t.lead.company}
-                </span>
+                <span className="text-sm font-semibold text-fg">Name</span>
+                <input
+                  required
+                  autoComplete="name"
+                  className={field}
+                  value={form.firstName}
+                  onChange={set("firstName")}
+                />
+              </label>
+              <label className="block space-y-1.5">
+                <span className="text-sm font-semibold text-fg">Company</span>
                 <input
                   required
                   autoComplete="organization"
@@ -266,15 +203,25 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
                 />
               </label>
               <label className="block space-y-1.5">
-                <span className="text-sm font-semibold text-fg">
-                  {t.lead.goals}
-                </span>
-                <textarea
-                  rows={3}
-                  className={cn(field, "resize-y min-h-[88px]")}
-                  placeholder={t.lead.goalsPlaceholder}
-                  value={form.goals}
-                  onChange={set("goals")}
+                <span className="text-sm font-semibold text-fg">Phone</span>
+                <input
+                  required
+                  type="tel"
+                  autoComplete="tel"
+                  className={field}
+                  value={form.phone}
+                  onChange={set("phone")}
+                />
+              </label>
+              <label className="block space-y-1.5">
+                <span className="text-sm font-semibold text-fg">Email</span>
+                <input
+                  required
+                  type="email"
+                  autoComplete="email"
+                  className={field}
+                  value={form.email}
+                  onChange={set("email")}
                 />
               </label>
               {error ? (

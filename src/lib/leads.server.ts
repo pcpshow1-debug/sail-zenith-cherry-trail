@@ -167,28 +167,6 @@ async function notifyInfoInbox(input: LeadInput) {
     `package=${input.packageName}`,
   ].join("\n");
 
-  const key = process.env.RESEND_API_KEY || "";
-  if (key) {
-    try {
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${key}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: "Rhino Lab <info@rhinolab.app>",
-          to: ["info@rhinolab.app"],
-          subject: `Plan request: ${plan} · rhinolab.app`,
-          text,
-        }),
-      });
-    } catch {
-      /* lead write already succeeded */
-    }
-    return;
-  }
-
   try {
     await fetch("https://estimate.rhinolab.app/api/leads", {
       method: "POST",
@@ -202,6 +180,9 @@ async function notifyInfoInbox(input: LeadInput) {
         company: input.company,
         source: "rhinolab.app",
         plan,
+        fenceType: "vinyl",
+        lengthFt: 10,
+        heightFt: 6,
         notes: text,
       }),
     });

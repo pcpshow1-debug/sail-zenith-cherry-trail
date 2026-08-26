@@ -6,11 +6,14 @@ import {
   updateLeadStage,
 } from "@/lib/leads.server";
 import { LEAD_STAGES, type LeadStage } from "@/lib/leads";
+import { crmGateDenied } from "@/lib/crm-gate.server";
 
 export const Route = createFileRoute("/api/leads")({
   server: {
     handlers: {
-      GET: async () => {
+      GET: async ({ request }) => {
+        const denied = crmGateDenied(request);
+        if (denied) return denied;
         const leads = await listLeads();
         return Response.json({ leads });
       },
@@ -46,6 +49,8 @@ export const Route = createFileRoute("/api/leads")({
         }
       },
       PATCH: async ({ request }) => {
+        const denied = crmGateDenied(request);
+        if (denied) return denied;
         try {
           const body = (await request.json()) as {
             leadId?: string;

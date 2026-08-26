@@ -40,6 +40,7 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
   const [form, setForm] = useState<LeadFormData>(empty);
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!open) return;
@@ -59,6 +60,7 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
     if (open) {
       setSent(false);
       setSubmitting(false);
+      setError("");
     }
   }, [open]);
 
@@ -73,6 +75,7 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setError("");
     const attr = getAttribution();
     const packageName =
       source === "pricing-base"
@@ -84,7 +87,7 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
             : "";
     const payload = {
       ...form,
-      source,
+      source: "rhinolab.app",
       packageName,
       ...attr,
       submittedAt: new Date().toISOString(),
@@ -99,17 +102,7 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
       setSent(true);
       setForm(empty);
     } catch {
-      try {
-        const key = "rhino-lab-leads";
-        const prev = JSON.parse(localStorage.getItem(key) || "[]") as unknown[];
-        prev.push(payload);
-        localStorage.setItem(key, JSON.stringify(prev));
-        setSent(true);
-        setForm(empty);
-      } finally {
-        setSubmitting(false);
-      }
-      return;
+      setError("Could not send. Check the fields and try again, or email us below.");
     }
     setSubmitting(false);
   };
@@ -231,7 +224,6 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
                     {t.lead.city}
                   </span>
                   <input
-                    required
                     autoComplete="address-level2"
                     className={field}
                     value={form.city}
@@ -243,7 +235,6 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
                     {t.lead.state}
                   </span>
                   <input
-                    required
                     autoComplete="address-level1"
                     className={field}
                     value={form.state}
@@ -255,7 +246,6 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
                     {t.lead.country}
                   </span>
                   <input
-                    required
                     autoComplete="country-name"
                     className={field}
                     value={form.country}
@@ -280,7 +270,6 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
                   {t.lead.goals}
                 </span>
                 <textarea
-                  required
                   rows={3}
                   className={cn(field, "resize-y min-h-[88px]")}
                   placeholder={t.lead.goalsPlaceholder}
@@ -288,6 +277,9 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
                   onChange={set("goals")}
                 />
               </label>
+              {error ? (
+                <p className="text-center text-sm font-semibold text-danger">{error}</p>
+              ) : null}
               <button
                 type="submit"
                 disabled={submitting}
@@ -295,6 +287,21 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
               >
                 {submitting ? t.lead.submitting : t.lead.submit}
               </button>
+              <p className="text-center text-sm text-muted">
+                Or email{" "}
+                <a className="underline" href="mailto:info@rhinolab.app">
+                  info@rhinolab.app
+                </a>
+                {" · "}
+                <a
+                  className="underline"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=info@rhinolab.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Gmail
+                </a>
+              </p>
               <p className="text-center text-sm text-subtle">{t.lead.privacy}</p>
             </form>
           )}

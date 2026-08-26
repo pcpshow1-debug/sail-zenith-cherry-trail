@@ -145,6 +145,71 @@ const SEQUENCE: { step: number; hours: number; title: string; channel: string }[
     },
   ];
 
+
+async function notifyInfoInbox(input: LeadInput) {
+  const plan = /pro/i.test(input.packageName || "")
+    ? "Pro"
+    : /base/i.test(input.packageName || "")
+      ? "Base"
+      : input.packageName || "unknown";
+  const text = [
+    "New plan request",
+    "source=rhinolab.app",
+    `plan=${plan}`,
+    `name=${input.firstName} ${input.lastName}`.trim(),
+    `company=${input.company}`,
+    `phone=${input.phone}`,
+    `email=${input.email}`,
+    `city=${input.city}`,
+    `state=${input.state}`,
+    `country=${input.country}`,
+    `goals=${input.goals}`,
+    `package=${input.packageName}`,
+  ].join("\n");
+
+  const key = process.env.RESEND_API_KEY || "";
+  if (key) {
+    try {
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${key}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Rhino Lab <info@rhinolab.app>",
+          to: ["info@rhinolab.app"],
+          subject: `Plan request: ${plan} · rhinolab.app`,
+          text,
+        }),
+      });
+    } catch {
+      /* lead write already succeeded */
+    }
+    return;
+  }
+
+  try {
+    await fetch("https://estimate.rhinolab.app/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstName: input.firstName,
+        lastName: input.lastName,
+        name: `${input.firstName} ${input.lastName}`.trim(),
+        phone: input.phone,
+        email: input.email,
+        company: input.company,
+        source: "rhinolab.app",
+        plan,
+        notes: text,
+      }),
+    });
+  } catch {
+    /* lead write already succeeded */
+  }
+}
+
 export async function createLead(raw: LeadInput): Promise<Lead> {
   const input: LeadInput = {
     firstName: required(raw.firstName),
@@ -224,6 +289,8 @@ export async function createLead(raw: LeadInput): Promise<Lead> {
       doneAt: null,
     });
   }
+
+  await notifyInfoInbox(input);
 
   return {
     id,

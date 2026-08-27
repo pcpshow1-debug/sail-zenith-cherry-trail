@@ -8,5 +8,5 @@ export const Route = createFileRoute("/privacy")({
 
 function PrivacyPage() {
   const { t } = useLocale();
-  return <LegalPage title={t.legal.privacy} />;
+  return <LegalPage title={t.legal.privacy} kind="privacy" />;
 }

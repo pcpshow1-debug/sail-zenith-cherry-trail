@@ -8,5 +8,5 @@ export const Route = createFileRoute("/terms")({
 
 function TermsPage() {
   const { t } = useLocale();
-  return <LegalPage title={t.legal.terms} />;
+  return <LegalPage title={t.legal.terms} kind="terms" />;
 }

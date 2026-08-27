@@ -720,8 +720,8 @@ const ru: Messages = {
     content: "AI-контент",
   },
   legal: {
-    terms: "Terms of Service",
-    privacy: "Privacy Policy",
+    terms: "Условия использования",
+    privacy: "Политика конфиденциальности",
     stub: "Это заглушка. Финальный текст опубликуем отдельно.",
   },
   hero: {

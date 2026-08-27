@@ -2,14 +2,14 @@ import { CONTACT_EMAIL, SITE_ORIGIN } from "@/lib/social";
 
 export type LegalSection = { heading: string; body: string[] };
 
-export const TERMS_UPDATED = "August 18, 2026";
-export const PRIVACY_UPDATED = "August 18, 2026";
+export const TERMS_UPDATED = "August 27, 2026";
+export const PRIVACY_UPDATED = "August 27, 2026";
 
 export const TERMS_SECTIONS: LegalSection[] = [
   {
     heading: "1. Who we are",
     body: [
-      `These Terms of Service (“Terms”) govern your use of ${SITE_ORIGIN}, the Rhino Lab estimator at app.zuevs.com, and related products (together, the “Service”). The Service is operated by David Zuev doing business as Rhino Lab (“Rhino Lab,” “we,” “us”).`,
+      `These Terms of Service (“Terms”) govern your use of ${SITE_ORIGIN}, the Rhino Lab estimator at https://estimate.rhinolab.app, and related products (together, the “Service”). The Service is operated by David Zuev doing business as Rhino Lab (“Rhino Lab,” “we,” “us”).`,
       `Contact: ${CONTACT_EMAIL}`,
     ],
   },
@@ -96,7 +96,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
   {
     heading: "1. Who we are",
     body: [
-      `This Privacy Policy explains how Rhino Lab / David Zuev (“we,” “us”) collects and uses information on ${SITE_ORIGIN}, app.zuevs.com, and related tools.`,
+      `This Privacy Policy explains how Rhino Lab / David Zuev (“we,” “us”) collects and uses information on ${SITE_ORIGIN}, https://estimate.rhinolab.app, and related tools.`,
       `Questions: ${CONTACT_EMAIL}`,
     ],
   },

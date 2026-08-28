@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const VIDEO_SRC =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_041744_63efcd78-bf7d-4039-99e2-2461e8a61903.mp4";
+const VIDEO_SRC = "/mainframe/mascot.mp4";
+
+/** Shown until the clip paints its first frame — it never autoplays. */
+const VIDEO_POSTER = "/mainframe/mascot-poster.png";
 
 /** How much of the clip one full-width mouse sweep scrubs through. */
 const SENSITIVITY = 0.8;
@@ -186,13 +188,14 @@ export function MainframeLanding() {
       <video
         ref={videoRef}
         src={VIDEO_SRC}
+        poster={VIDEO_POSTER}
         muted
         playsInline
         preload="auto"
         onLoadedMetadata={handleLoadedMetadata}
         onSeeked={handleSeeked}
-        className="pointer-events-none fixed inset-0 h-full w-full"
-        style={{ zIndex: 0, objectFit: "cover", objectPosition: "70% center" }}
+        className="mainframe-video pointer-events-none fixed inset-0 h-full w-full"
+        style={{ zIndex: 0 }}
       />
 
       <header
@@ -288,6 +291,8 @@ export function MainframeLanding() {
         className="mainframe-hero relative flex flex-col justify-end overflow-hidden px-5 pb-12 sm:px-8 md:justify-center md:px-10 md:pb-0"
         style={{ zIndex: 1 }}
       >
+        <div className="mainframe-scrim pointer-events-none absolute inset-0" aria-hidden="true" />
+
         <div className="relative z-10 max-w-xl">
           <p
             className="pointer-events-none mb-5 select-none sm:mb-6"

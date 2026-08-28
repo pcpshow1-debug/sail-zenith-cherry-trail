@@ -15,3 +15,47 @@
     opacity: 0;
   }
 }
+
+.mainframe-page {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.mainframe-hero {
+  height: 100vh;
+}
+
+/*
+ * Mobile browser chrome makes 100vh taller than what is actually on screen,
+ * which would push the bottom-aligned hero copy under the address bar.
+ */
+@supports (height: 100dvh) {
+  .mainframe-page {
+    min-height: 100dvh;
+  }
+
+  .mainframe-hero {
+    height: 100dvh;
+  }
+}
+
+/* Keep the notch and the home indicator clear of the content. The breakpoints
+ * mirror Tailwind's so the safe-area inset adds to the padding this page
+ * already has at each size rather than replacing it. */
+@media (max-width: 639px) {
+  .mainframe-nav {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .mainframe-nav {
+    padding-top: calc(1.25rem + env(safe-area-inset-top));
+  }
+}
+
+@media (max-width: 767px) {
+  .mainframe-hero {
+    padding-bottom: calc(3rem + env(safe-area-inset-bottom));
+  }
+}

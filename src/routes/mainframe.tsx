@@ -11,6 +11,11 @@ export const Route = createFileRoute("/mainframe")({
   head: () => ({
     meta: [
       { title: "Mainframe® — Creative Agency" },
+      // viewport-fit=cover is what makes env(safe-area-inset-*) non-zero on iOS.
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1, viewport-fit=cover",
+      },
       {
         name: "description",
         content:

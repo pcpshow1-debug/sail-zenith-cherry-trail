@@ -66,6 +66,7 @@ export function MainframeLanding() {
   const seekingRef = useRef(false);
   const lastSeekRef = useRef<number | null>(null);
   const prevXRef = useRef<number | null>(null);
+  const unlockedRef = useRef(false);
 
   /**
    * Seek only while no seek is in flight; `seeked` re-runs this so the pointer's
@@ -101,28 +102,73 @@ export function MainframeLanding() {
     seek();
   }, [seek]);
 
+  /**
+   * iOS refuses to decode a frame until playback has been started from a real
+   * gesture, so the first touch starts and immediately stops the muted clip.
+   */
+  const unlockPlayback = useCallback(() => {
+    const video = videoRef.current;
+    if (!video || unlockedRef.current) return;
+    unlockedRef.current = true;
+
+    const played = video.play();
+    if (played && typeof played.then === "function") {
+      played.then(() => video.pause()).catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, []);
+
   useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
+    const scrubTo = (clientX: number) => {
       const video = videoRef.current;
       if (!video || !Number.isFinite(video.duration) || video.duration === 0) return;
 
-      const currentX = event.clientX;
       if (prevXRef.current === null) {
-        prevXRef.current = currentX;
+        prevXRef.current = clientX;
         return;
       }
 
-      const delta = currentX - prevXRef.current;
-      prevXRef.current = currentX;
+      const delta = clientX - prevXRef.current;
+      prevXRef.current = clientX;
 
       const offset = (delta / window.innerWidth) * SENSITIVITY * video.duration;
       targetTimeRef.current = Math.min(Math.max(targetTimeRef.current + offset, 0), video.duration);
       seek();
     };
 
+    const handleMouseMove = (event: MouseEvent) => scrubTo(event.clientX);
+
+    // Each touch opens a fresh gesture — otherwise the gap between two separate
+    // taps would read as one enormous swipe.
+    const handleTouchStart = (event: TouchEvent) => {
+      prevXRef.current = event.touches[0]?.clientX ?? null;
+      unlockPlayback();
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (touch) scrubTo(touch.clientX);
+    };
+
+    const endTouch = () => {
+      prevXRef.current = null;
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [seek]);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", endTouch);
+    window.addEventListener("touchcancel", endTouch);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", endTouch);
+      window.removeEventListener("touchcancel", endTouch);
+    };
+  }, [seek, unlockPlayback]);
 
   const copyEmail = useCallback(async () => {
     try {
@@ -134,7 +180,7 @@ export function MainframeLanding() {
 
   return (
     <div
-      className="relative min-h-screen bg-black text-white"
+      className="mainframe-page relative bg-black text-white"
       style={{ fontFamily: "var(--font-body)" }}
     >
       <video
@@ -150,7 +196,7 @@ export function MainframeLanding() {
       />
 
       <header
-        className="fixed inset-x-0 top-0 flex items-center justify-between px-5 py-4 sm:px-8 sm:py-5"
+        className="mainframe-nav fixed inset-x-0 top-0 flex items-center justify-between px-5 py-4 sm:px-8 sm:py-5"
         style={{ zIndex: 10 }}
       >
         <a href="/" className="flex items-center gap-3">
@@ -239,7 +285,7 @@ export function MainframeLanding() {
       </div>
 
       <section
-        className="relative flex h-screen flex-col justify-end overflow-hidden px-5 pb-12 sm:px-8 md:justify-center md:px-10 md:pb-0"
+        className="mainframe-hero relative flex flex-col justify-end overflow-hidden px-5 pb-12 sm:px-8 md:justify-center md:px-10 md:pb-0"
         style={{ zIndex: 1 }}
       >
         <div className="relative z-10 max-w-xl">

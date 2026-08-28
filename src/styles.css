@@ -192,3 +192,19 @@
     transform: translateX(-2px) rotate(-0.4deg);
   }
 }
+
+:root {
+  --font-heading: "HelveticaNowDisplay-Medium", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "HelveticaNowDisplayW01-Rg", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Typewriter caret on the Mainframe hero. */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MainframeLanding } from "@/components/mainframe-landing";
+import mainframeCss from "../components/mainframe-landing.css?url";
 
 const HEADING_FONT =
   "https://db.onlinewebfonts.com/c/5ac3fe7c6abd2f62067f266d89671492?family=HelveticaNowDisplay-Medium";
@@ -17,6 +18,7 @@ export const Route = createFileRoute("/mainframe")({
       },
     ],
     links: [
+      { rel: "stylesheet", href: mainframeCss },
       { rel: "preconnect", href: "https://db.onlinewebfonts.com" },
       { rel: "stylesheet", href: HEADING_FONT },
       { rel: "stylesheet", href: BODY_FONT },

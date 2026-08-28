@@ -5,9 +5,6 @@ const VIDEO_SRC = "/mainframe/mascot.mp4";
 /** Shown until the clip paints its first frame — it never autoplays. */
 const VIDEO_POSTER = "/mainframe/mascot-poster.png";
 
-/** How much of the clip one full-width mouse sweep scrubs through. */
-const SENSITIVITY = 0.8;
-
 const NAV_LINKS = ["Labs", "Studio", "Openings", "Shop"] as const;
 
 const TYPED_TEXT = "Glad you stopped in. Good taste tends to find us. Now, what are we building?";
@@ -67,12 +64,11 @@ export function MainframeLanding() {
   const targetTimeRef = useRef(0);
   const seekingRef = useRef(false);
   const lastSeekRef = useRef<number | null>(null);
-  const prevXRef = useRef<number | null>(null);
   const unlockedRef = useRef(false);
 
   /**
    * Seek only while no seek is in flight; `seeked` re-runs this so the pointer's
-   * newest target is picked up without flooding the element with seeks.
+   * newest position is picked up without flooding the element with seeks.
    */
   const seek = useCallback(() => {
     const video = videoRef.current;
@@ -96,11 +92,29 @@ export function MainframeLanding() {
     seek();
   }, [seek]);
 
+  /**
+   * The pointer's position across the viewport maps straight onto the clip, so
+   * the mascot holds whatever pose belongs to where the pointer is: hard left
+   * is the first frame, hard right the last. This is an absolute mapping, not
+   * an accumulated one — let go and come back and he is still tracking you.
+   */
+  const trackPointer = useCallback(
+    (clientX: number) => {
+      const video = videoRef.current;
+      if (!video || !Number.isFinite(video.duration) || video.duration === 0) return;
+
+      const ratio = Math.min(Math.max(clientX / window.innerWidth, 0), 1);
+      targetTimeRef.current = ratio * video.duration;
+      seek();
+    },
+    [seek],
+  );
+
   // The clip never autoplays, so nudge it once to get a first frame painted.
   const handleLoadedMetadata = useCallback(() => {
     const video = videoRef.current;
     if (!video || !Number.isFinite(video.duration)) return;
-    targetTimeRef.current = Math.min(0.01, video.duration);
+    targetTimeRef.current = video.duration / 2;
     seek();
   }, [seek]);
 
@@ -122,55 +136,29 @@ export function MainframeLanding() {
   }, []);
 
   useEffect(() => {
-    const scrubTo = (clientX: number) => {
-      const video = videoRef.current;
-      if (!video || !Number.isFinite(video.duration) || video.duration === 0) return;
+    const handleMouseMove = (event: MouseEvent) => trackPointer(event.clientX);
 
-      if (prevXRef.current === null) {
-        prevXRef.current = clientX;
-        return;
-      }
-
-      const delta = clientX - prevXRef.current;
-      prevXRef.current = clientX;
-
-      const offset = (delta / window.innerWidth) * SENSITIVITY * video.duration;
-      targetTimeRef.current = Math.min(Math.max(targetTimeRef.current + offset, 0), video.duration);
-      seek();
-    };
-
-    const handleMouseMove = (event: MouseEvent) => scrubTo(event.clientX);
-
-    // Each touch opens a fresh gesture — otherwise the gap between two separate
-    // taps would read as one enormous swipe.
     const handleTouchStart = (event: TouchEvent) => {
-      prevXRef.current = event.touches[0]?.clientX ?? null;
       unlockPlayback();
+      const touch = event.touches[0];
+      if (touch) trackPointer(touch.clientX);
     };
 
     const handleTouchMove = (event: TouchEvent) => {
       const touch = event.touches[0];
-      if (touch) scrubTo(touch.clientX);
-    };
-
-    const endTouch = () => {
-      prevXRef.current = null;
+      if (touch) trackPointer(touch.clientX);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("touchend", endTouch);
-    window.addEventListener("touchcancel", endTouch);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", endTouch);
-      window.removeEventListener("touchcancel", endTouch);
     };
-  }, [seek, unlockPlayback]);
+  }, [trackPointer, unlockPlayback]);
 
   const copyEmail = useCallback(async () => {
     try {
@@ -181,10 +169,7 @@ export function MainframeLanding() {
   }, []);
 
   return (
-    <div
-      className="mainframe-page relative bg-black text-white"
-      style={{ fontFamily: "var(--font-body)" }}
-    >
+    <div className="mainframe-page relative" style={{ fontFamily: "var(--font-body)" }}>
       <video
         ref={videoRef}
         src={VIDEO_SRC}
@@ -194,8 +179,7 @@ export function MainframeLanding() {
         preload="auto"
         onLoadedMetadata={handleLoadedMetadata}
         onSeeked={handleSeeked}
-        className="mainframe-video pointer-events-none fixed inset-0 h-full w-full"
-        style={{ zIndex: 0 }}
+        className="mainframe-video pointer-events-none"
       />
 
       <header
@@ -204,21 +188,21 @@ export function MainframeLanding() {
       >
         <a href="/" className="flex items-center gap-3">
           <span
-            className="text-[21px] tracking-tight text-white sm:text-[26px]"
+            className="mainframe-ink text-[21px] tracking-tight sm:text-[26px]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Mainframe&#174;
           </span>
           <span
             aria-hidden="true"
-            className="select-none text-[25px] text-white sm:text-[30px]"
+            className="mainframe-ink select-none text-[25px] sm:text-[30px]"
             style={{ letterSpacing: "-0.02em" }}
           >
             &#10035;&#xFE0E;
           </span>
         </a>
 
-        <nav className="hidden text-[23px] text-white md:flex md:flex-row">
+        <nav className="mainframe-ink hidden text-[23px] md:flex md:flex-row">
           {NAV_LINKS.map((link, index) => (
             <span key={link}>
               <a href="#" className="transition-opacity hover:opacity-60">
@@ -231,7 +215,7 @@ export function MainframeLanding() {
 
         <a
           href={`mailto:${EMAIL}`}
-          className="hidden text-[23px] text-white underline underline-offset-2 transition-opacity hover:opacity-60 md:inline"
+          className="mainframe-ink hidden text-[23px] underline underline-offset-2 transition-opacity hover:opacity-60 md:inline"
         >
           Get in touch
         </a>
@@ -244,17 +228,17 @@ export function MainframeLanding() {
           className="flex flex-col gap-[5px] md:hidden"
         >
           <span
-            className={`h-[2px] w-6 bg-white transition-transform duration-300 ${
+            className={`mainframe-bar h-[2px] w-6 transition-transform duration-300 ${
               menuOpen ? "translate-y-[7px] rotate-45" : ""
             }`}
           />
           <span
-            className={`h-[2px] w-6 bg-white transition-opacity duration-300 ${
+            className={`mainframe-bar h-[2px] w-6 transition-opacity duration-300 ${
               menuOpen ? "opacity-0" : "opacity-100"
             }`}
           />
           <span
-            className={`h-[2px] w-6 bg-white transition-transform duration-300 ${
+            className={`mainframe-bar h-[2px] w-6 transition-transform duration-300 ${
               menuOpen ? "-translate-y-[7px] -rotate-45" : ""
             }`}
           />
@@ -262,7 +246,7 @@ export function MainframeLanding() {
       </header>
 
       <div
-        className={`fixed inset-0 flex flex-col items-start justify-center gap-8 bg-black/90 px-8 backdrop-blur-md transition-opacity duration-300 md:hidden ${
+        className={`mainframe-overlay fixed inset-0 flex flex-col items-start justify-center gap-8 px-8 backdrop-blur-md transition-opacity duration-300 md:hidden ${
           menuOpen ? "opacity-100" : "opacity-0"
         }`}
         style={{ zIndex: 9, pointerEvents: menuOpen ? "auto" : "none" }}
@@ -272,7 +256,7 @@ export function MainframeLanding() {
           <a
             key={link}
             href="#"
-            className="text-[32px] font-medium text-white"
+            className="mainframe-ink text-[32px] font-medium"
             onClick={() => setMenuOpen(false)}
           >
             {link}
@@ -280,7 +264,7 @@ export function MainframeLanding() {
         ))}
         <a
           href={`mailto:${EMAIL}`}
-          className="text-[32px] font-medium text-white underline underline-offset-2"
+          className="mainframe-ink text-[32px] font-medium underline underline-offset-2"
           onClick={() => setMenuOpen(false)}
         >
           Get in touch
@@ -291,16 +275,13 @@ export function MainframeLanding() {
         className="mainframe-hero relative flex flex-col justify-end overflow-hidden px-5 pb-12 sm:px-8 md:justify-center md:px-10 md:pb-0"
         style={{ zIndex: 1 }}
       >
-        <div className="mainframe-scrim pointer-events-none absolute inset-0" aria-hidden="true" />
-
         <div className="relative z-10 max-w-xl">
           <p
-            className="pointer-events-none mb-5 select-none sm:mb-6"
+            className="mainframe-intro pointer-events-none mb-5 select-none sm:mb-6"
             style={{
               fontSize: "clamp(18px, 4vw, 26px)",
               lineHeight: 1.3,
               fontWeight: 400,
-              color: "#fff",
               filter: "blur(4px)",
             }}
           >
@@ -310,7 +291,7 @@ export function MainframeLanding() {
           </p>
 
           <p
-            className="mb-5 text-white sm:mb-6"
+            className="mainframe-ink mb-5 sm:mb-6"
             style={{
               fontSize: "clamp(18px, 4vw, 26px)",
               lineHeight: 1.35,
@@ -319,13 +300,7 @@ export function MainframeLanding() {
             }}
           >
             {displayed}
-            {done ? null : (
-              <span
-                aria-hidden="true"
-                className="ml-[2px] inline-block h-[1.1em] w-[2px] bg-white align-middle"
-                style={{ animation: "blink 1s step-end infinite" }}
-              />
-            )}
+            {done ? null : <span aria-hidden="true" className="mainframe-caret" />}
           </p>
 
           <div
@@ -340,7 +315,7 @@ export function MainframeLanding() {
               <button
                 key={action}
                 type="button"
-                className="mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]"
+                className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-[0.3em] text-[13px] transition-colors duration-200 sm:px-5 sm:text-[15px]"
               >
                 {action}
               </button>
@@ -350,7 +325,7 @@ export function MainframeLanding() {
               type="button"
               onClick={copyEmail}
               aria-label={`Copy ${EMAIL} to clipboard`}
-              className="mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white bg-transparent px-4 py-[0.3em] text-[13px] text-white transition-colors duration-200 hover:bg-white hover:text-black sm:gap-3 sm:px-5 sm:text-[15px]"
+              className="mainframe-pill-outline mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-[0.3em] text-[13px] transition-colors duration-200 sm:gap-3 sm:px-5 sm:text-[15px]"
             >
               <span>
                 Reach us: <span className="underline underline-offset-1">{EMAIL}</span>

@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-r
 import { AuthProvider } from "@/lib/auth/provider";
 import { LocaleProvider } from "@/lib/i18n";
 import { SiteTracker } from "@/components/site-tracker";
+import { CreatedWithGrokBanner } from "@/components/created-with-grok-banner";
 import { SITE_ORIGIN } from "@/lib/social";
 import appCss from "../styles.css?url";
 
@@ -11,13 +12,13 @@ const TITLE =
 const DESCRIPTION =
   "Homeowners call 3–5 companies. The first clear price usually wins. Rhino Lab texts a branded estimate in under 60 seconds, then files the lead in your CRM. Built by David Zuev.";
 const CANONICAL = `${SITE_ORIGIN}/`;
-const OG_IMAGE = `${SITE_ORIGIN}/og.jpg`;
+const OG_IMAGE = `${SITE_ORIGIN}/og-share.jpg`;
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" },
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
       { name: "apple-mobile-web-app-title", content: APP_NAME },
@@ -42,9 +43,11 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/icon-180.png" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Poppins:wght@400;500;600;700&display=swap",
       },
       { rel: "canonical", href: CANONICAL },
     ],
@@ -59,6 +62,7 @@ function RootDocument() {
         <HeadContent />
       </head>
       <body>
+        <CreatedWithGrokBanner />
         <AuthProvider>
           <LocaleProvider>
             <SiteTracker />

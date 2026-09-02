@@ -12,7 +12,7 @@ const TITLE =
 const DESCRIPTION =
   "Homeowners call 3–5 companies. The first clear price usually wins. Rhino Lab texts a branded estimate in under 60 seconds, then files the lead in your CRM. Built by David Zuev.";
 const CANONICAL = `${SITE_ORIGIN}/`;
-const OG_IMAGE = `${SITE_ORIGIN}/og-share.jpg`;
+const OG_IMAGE = `${SITE_ORIGIN}/og.jpg`;
 
 export const Route = createRootRoute({
   head: () => ({

@@ -12,7 +12,9 @@ const TITLE =
 const DESCRIPTION =
   "Homeowners call 3–5 companies. The first clear price usually wins. Rhino Lab texts a branded estimate in under 60 seconds, then files the lead in your CRM. Built by David Zuev.";
 const CANONICAL = `${SITE_ORIGIN}/`;
-const OG_IMAGE = `${SITE_ORIGIN}/og.jpg`;
+const host = import.meta.env.VITE_PUBLIC_HOSTNAME as string | undefined;
+const ogImage = host ? `https://${host}/og.jpg` : `${SITE_ORIGIN}/og.jpg`;
+const xBanner = host ? `https://${host}/x-banner.jpg` : `${SITE_ORIGIN}/x-banner.jpg`;
 
 export const Route = createRootRoute({
   head: () => ({
@@ -30,13 +32,14 @@ export const Route = createRootRoute({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: CANONICAL },
-      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image", content: ogImage },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
+      { property: "x:game:image", content: xBanner },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
-      { name: "twitter:image", content: OG_IMAGE },
+      { name: "twitter:image", content: ogImage },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

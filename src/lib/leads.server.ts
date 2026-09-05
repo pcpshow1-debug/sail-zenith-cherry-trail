@@ -152,6 +152,7 @@ async function notifyInfoInbox(input: LeadInput) {
     : /base/i.test(input.packageName || "")
       ? "Base"
       : input.packageName || "unknown";
+  const packageLabel = (input.packageName || plan || "unknown").trim();
   const text = [
     "New plan request",
     "source=rhinolab.app",
@@ -164,26 +165,37 @@ async function notifyInfoInbox(input: LeadInput) {
     `state=${input.state}`,
     `country=${input.country}`,
     `goals=${input.goals}`,
-    `package=${input.packageName}`,
+    `package=${packageLabel}`,
   ].join("\n");
 
+  const key = (process.env.RESEND_API_KEY || "").trim();
+  if (!key) {
+    /* lead write already succeeded — mail not configured */
+    return;
+  }
+
+  const from =
+    (process.env.NOTIFY_FROM_EMAIL || "").trim() ||
+    "Rhino Lab <info@rhinolab.app>";
+  const toRaw =
+    (process.env.NOTIFY_EMAIL || "").trim() || "info@rhinolab.app";
+  const to = toRaw.split(",").map((s) => s.trim()).filter(Boolean);
+  const subject = `New plan request — ${packageLabel} — ${
+    input.company || input.firstName || "lead"
+  }`;
+
   try {
-    await fetch("https://estimate.rhinolab.app/api/leads", {
+    await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        firstName: input.firstName,
-        lastName: input.lastName,
-        name: `${input.firstName} ${input.lastName}`.trim(),
-        phone: input.phone,
-        email: input.email,
-        company: input.company,
-        source: "rhinolab.app",
-        plan,
-        fenceType: "vinyl",
-        lengthFt: 10,
-        heightFt: 6,
-        notes: text,
+        from,
+        to,
+        subject,
+        text,
       }),
     });
   } catch {

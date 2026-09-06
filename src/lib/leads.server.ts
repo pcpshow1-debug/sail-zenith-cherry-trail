@@ -180,12 +180,10 @@ async function notifyInfoInbox(input: LeadInput) {
   const toRaw =
     (process.env.NOTIFY_EMAIL || "").trim() || "info@rhinolab.app";
   const to = toRaw.split(",").map((s) => s.trim()).filter(Boolean);
-  const subject = `New plan request — ${packageLabel} — ${
-    input.company || input.firstName || "lead"
-  }`;
+  const subject = `Plan request: ${plan} · rhinolab.app`;
 
   try {
-    await fetch("https://api.resend.com/emails", {
+    const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${key}`,
@@ -198,7 +196,16 @@ async function notifyInfoInbox(input: LeadInput) {
         text,
       }),
     });
-  } catch {
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      console.error(
+        "[notifyInfoInbox] Resend failed",
+        res.status,
+        body.slice(0, 500),
+      );
+    }
+  } catch (err) {
+    console.error("[notifyInfoInbox] Resend error", err);
     /* lead write already succeeded */
   }
 }

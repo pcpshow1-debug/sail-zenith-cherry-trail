@@ -8,13 +8,16 @@ import { useLocale, type Locale } from "@/lib/i18n";
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { locale, setLocale, t } = useLocale();
-  const appUrl = estimatorUrl(locale);
+  const appUrl = estimatorUrl(locale, "header");
 
   const nav = [
     { href: "/#estimator", label: t.nav.estimator },
+    { href: "/#visualization", label: locale === "ru" ? "AI-визуализация" : "AI visualizer" },
     { href: "/#crm", label: t.estimatorJobs.crm },
+    { href: "/#content", label: t.nav.content },
+    { href: "/#training", label: locale === "ru" ? "Игра" : "Game" },
+    { href: "/insights", label: locale === "ru" ? "Блог" : "Insights" },
     { href: "/#pricing", label: t.nav.pricing },
-    { href: "/#about", label: t.nav.about },
   ];
 
   const LangToggle = ({ className }: { className?: string }) => (

@@ -39,6 +39,7 @@ export const Route = createFileRoute("/api/leads")({
             utmSource: String(body.utmSource ?? ""),
             utmMedium: String(body.utmMedium ?? ""),
             utmCampaign: String(body.utmCampaign ?? ""),
+            utmContent: String(body.utmContent ?? ""),
             packageName: String(body.packageName ?? ""),
           });
           return Response.json({ lead }, { status: 201 });

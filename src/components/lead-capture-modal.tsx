@@ -100,11 +100,11 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
       lastName,
       phone: form.phone,
       email: form.email,
-      city: "",
-      state: "",
-      country: "",
+      city: form.city,
+      state: form.state,
+      country: form.country,
       company: form.company,
-      goals: "",
+      goals: form.goals,
       source: "rhinolab.app",
       packageName,
       ...attr,
@@ -222,6 +222,49 @@ export function LeadCaptureModal({ open, onClose, source = "site" }: Props) {
                   className={field}
                   value={form.email}
                   onChange={set("email")}
+                />
+              </label>
+              <div className="grid gap-3 sm:grid-cols-3">
+                <label className="block space-y-1.5">
+                  <span className="text-sm font-semibold text-fg">{t.lead.city}</span>
+                  <input
+                    required
+                    autoComplete="address-level2"
+                    className={field}
+                    value={form.city}
+                    onChange={set("city")}
+                  />
+                </label>
+                <label className="block space-y-1.5">
+                  <span className="text-sm font-semibold text-fg">{t.lead.state}</span>
+                  <input
+                    required
+                    autoComplete="address-level1"
+                    className={field}
+                    value={form.state}
+                    onChange={set("state")}
+                  />
+                </label>
+                <label className="block space-y-1.5">
+                  <span className="text-sm font-semibold text-fg">{t.lead.country}</span>
+                  <input
+                    required
+                    autoComplete="country-name"
+                    className={field}
+                    value={form.country}
+                    onChange={set("country")}
+                  />
+                </label>
+              </div>
+              <label className="block space-y-1.5">
+                <span className="text-sm font-semibold text-fg">{t.lead.goals}</span>
+                <textarea
+                  required
+                  rows={3}
+                  className={field}
+                  placeholder={t.lead.goalsPlaceholder}
+                  value={form.goals}
+                  onChange={set("goals")}
                 />
               </label>
               {error ? (

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CrmRouteImport } from './routes/crm'
 import { Route as EstimatorRouteImport } from './routes/estimator'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -33,6 +34,11 @@ const CrmRoute = CrmRouteImport.update({
 const EstimatorRoute = EstimatorRouteImport.update({
   id: '/estimator',
   path: '/estimator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/crm': typeof CrmRoute
   '/estimator': typeof EstimatorRoute
+  '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/crm': typeof CrmRoute
   '/estimator': typeof EstimatorRoute
+  '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/crm': typeof CrmRoute
   '/estimator': typeof EstimatorRoute
+  '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/crm'
     | '/estimator'
+    | '/insights'
     | '/login'
     | '/privacy'
     | '/terms'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/crm'
     | '/estimator'
+    | '/insights'
     | '/login'
     | '/privacy'
     | '/terms'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/crm'
     | '/estimator'
+    | '/insights'
     | '/login'
     | '/privacy'
     | '/terms'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CrmRoute: typeof CrmRoute
   EstimatorRoute: typeof EstimatorRoute
+  InsightsRoute: typeof InsightsRoute
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/estimator'
       fullPath: '/estimator'
       preLoaderRoute: typeof EstimatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CrmRoute: CrmRoute,
   EstimatorRoute: EstimatorRoute,
+  InsightsRoute: InsightsRoute,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,

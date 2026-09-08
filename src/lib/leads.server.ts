@@ -176,9 +176,9 @@ async function notifyInfoInbox(input: LeadInput) {
 
   const from =
     (process.env.NOTIFY_FROM_EMAIL || "").trim() ||
-    "Rhino Lab <info@rhinolab.app>";
+    "Rhino Lab <onboarding@resend.dev>";
   const toRaw =
-    (process.env.NOTIFY_EMAIL || "").trim() || "info@rhinolab.app";
+    (process.env.NOTIFY_EMAIL || "").trim() || "pcpshow1@gmail.com";
   const to = toRaw.split(",").map((s) => s.trim()).filter(Boolean);
   const subject = `Plan request: ${plan} · rhinolab.app`;
 

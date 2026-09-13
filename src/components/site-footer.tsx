@@ -8,7 +8,7 @@ import {
 import { useLocale } from "@/lib/i18n";
 
 export function SiteFooter() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   return (
     <footer className="border-t border-border bg-bg-elevated">
@@ -32,6 +32,15 @@ export function SiteFooter() {
           <a href="/#crm" className="hover:text-fg">
             {t.estimatorJobs.crm}
           </a>
+          <a href="/#content" className="hover:text-fg">
+            {t.nav.content}
+          </a>
+          <a href="/#training" className="hover:text-fg">
+            {locale === "ru" ? "Игра" : "Game"}
+          </a>
+          <Link to="/insights" className="hover:text-fg">
+            {locale === "ru" ? "Блог" : "Insights"}
+          </Link>
           <a href="/#pricing" className="hover:text-fg">
             {t.nav.pricing}
           </a>

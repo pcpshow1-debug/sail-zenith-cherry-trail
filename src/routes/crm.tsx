@@ -408,6 +408,7 @@ function CrmDesk({ ru }: { ru: boolean }) {
                     <p className="mt-2 text-xs text-subtle">
                       UTM: {session.utmSource}
                       {session.utmCampaign ? ` / ${session.utmCampaign}` : ""}
+                      {session.utmContent ? ` / ${session.utmContent}` : ""}
                     </p>
                   ) : null}
                   <SlideList slides={session.slides} ru={ru} />
@@ -519,7 +520,13 @@ function LeadDetail({
         <p>
           {ru ? "Канал:" : "Channel:"} {lead.channel || "Direct"}
         </p>
-        {lead.utmSource ? <p>UTM: {lead.utmSource}</p> : null}
+        {lead.utmSource ? (
+          <p>
+            UTM: {lead.utmSource}
+            {lead.utmCampaign ? ` / ${lead.utmCampaign}` : ""}
+            {lead.utmContent ? ` / ${lead.utmContent}` : ""}
+          </p>
+        ) : null}
         <p className="sm:col-span-2 text-muted">{lead.goals}</p>
       </div>
 

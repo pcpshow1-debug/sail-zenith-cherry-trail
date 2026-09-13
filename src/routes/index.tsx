@@ -10,6 +10,7 @@ import { RaceHero } from "@/components/race-hero";
 import { BurnCounter } from "@/components/burn-counter";
 import { LeadCaptureModal } from "@/components/lead-capture-modal";
 import { SeoSync } from "@/components/seo-sync";
+import { GrowthSystemSections } from "@/components/growth-system-sections";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 import { estimatorUrl } from "@/lib/estimator";
 import { useLocale } from "@/lib/i18n";
@@ -57,7 +58,7 @@ function HomePage() {
   const [leadOpen, setLeadOpen] = useState(false);
   const [leadSource, setLeadSource] = useState("site");
   const { t, locale } = useLocale();
-  const appUrl = estimatorUrl(locale);
+  const appUrl = estimatorUrl(locale, "homepage");
 
   const openLead = (source: string) => {
     setLeadSource(source);
@@ -281,6 +282,8 @@ function HomePage() {
           </div>
         </section>
 
+        <GrowthSystemSections appUrl={appUrl} onLead={openLead} />
+
         <section
           id="crm"
           className="section-pad section-y"
@@ -326,7 +329,7 @@ function HomePage() {
             <p className="mx-auto max-w-xl text-center text-lg font-semibold">
               {t.pricing.body}
             </p>
-            <div className="mx-auto grid max-w-[760px] items-start gap-10 md:grid-cols-2 md:gap-8">
+            <div className="mx-auto grid max-w-6xl items-start gap-10 md:grid-cols-3 md:gap-6">
               <article className="group flex flex-col items-center rounded-3xl p-3 transition duration-300 hover:-translate-y-2 hover:bg-white hover:shadow-[0_28px_55px_-18px_rgba(0,102,255,0.32)]">
                 <div className="relative">
                   <span className="absolute -left-2 top-4 z-10 rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase text-white shadow-sm">
@@ -421,6 +424,49 @@ function HomePage() {
                     className="inline-flex h-12 w-full items-center justify-center rounded-full border border-border px-6 text-sm font-semibold transition group-hover:border-accent group-hover:bg-accent group-hover:text-white"
                   >
                     {t.orderPlan}
+                  </button>
+                </div>
+              </article>
+
+              <article className="group flex flex-col items-center rounded-3xl p-3 transition duration-300 hover:-translate-y-2 hover:bg-white hover:shadow-[0_28px_55px_-18px_rgba(0,102,255,0.32)]">
+                <div className="relative">
+                  <span className="absolute -left-2 top-4 z-10 rounded-full bg-fg px-3 py-1 text-xs font-bold uppercase text-white shadow-sm">
+                    {t.pricing.whenReady}
+                  </span>
+                  <PhoneStage className="transition duration-300 group-hover:scale-[1.03]">
+                    <img
+                      src="/rhino/pricing-ultimate.jpg?v=4"
+                      alt={t.pricing.ultimate.name}
+                      className="block h-auto w-full"
+                      loading="lazy"
+                    />
+                  </PhoneStage>
+                </div>
+                <div className="mt-5 w-full max-w-[320px] space-y-4">
+                  <div>
+                    <h3 className="text-2xl font-bold">{t.pricing.ultimate.name}</h3>
+                    <p className="mt-1 text-sm font-semibold text-accent">
+                      {t.pricing.ultimate.tag}
+                    </p>
+                  </div>
+                  <p className="text-2xl font-bold text-fg">
+                    {locale === "ru" ? "Индивидуальный план" : "Custom plan"}
+                  </p>
+                  <ul className="space-y-2 text-sm">
+                    {t.pricing.ultimate.features.map((item) => (
+                      <li key={item} className="flex gap-2">
+                        <Check className="mt-0.5 size-4 shrink-0 text-accent" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    type="button"
+                    onClick={() => openLead("pricing-ultimate")}
+                    data-track="package-ultimate"
+                    className="inline-flex h-12 w-full items-center justify-center rounded-full border border-fg bg-fg px-6 text-sm font-semibold text-white transition hover:bg-primary"
+                  >
+                    {t.pricing.ultimate.cta}
                   </button>
                 </div>
               </article>

@@ -7,9 +7,9 @@ import appCss from "../styles.css?url";
 
 const APP_NAME = "Rhino Lab";
 const TITLE =
-  "Rhino Lab | Instant Contractor Estimator That Answers Leads in 60 Seconds";
+  "Rhino Lab | AI Sales Systems for Contractors";
 const DESCRIPTION =
-  "Homeowners call 3–5 companies. The first clear price usually wins. Rhino Lab texts a branded estimate in under 60 seconds, then files the lead in your CRM. Built by David Zuev.";
+  "Instant estimates, AI yard visualization, CRM attribution, content production, and training games for contractors. Built by David Zuev.";
 const CANONICAL = `${SITE_ORIGIN}/`;
 const OG_IMAGE = `${SITE_ORIGIN}/og.jpg`;
 

@@ -256,10 +256,9 @@ export type Messages = {
 
 const en: Messages = {
   seo: {
-    title:
-      "Rhino Lab | Instant Contractor Estimator That Answers Leads in 60 Seconds",
+    title: "Rhino Lab | AI Sales Systems for Contractors",
     description:
-      "Homeowners call 3–5 companies. The first clear price usually wins. Rhino Lab texts a branded estimate in under 60 seconds, then files the lead in your CRM. Built by David Zuev.",
+      "Rhino Lab gives contractors an instant estimator, AI yard visualization, CRM attribution, content production, and training games.",
   },
   nav: {
     problem: "The problem",
@@ -303,7 +302,7 @@ const en: Messages = {
     job: "Vinyl privacy fence · 150 linear ft · incl. 1 gate",
     book: "Book this job",
     filed: "Lead filed automatically.",
-    pipeline: "+$5,200 added to the pipeline — zero follow-up needed.",
+    pipeline: "+$5,200 added to the pipeline — the owner sees the lead now.",
     footer: "Same homeowner. Same question. Sent to five companies at once.",
     footerWon:
       "While the others were still typing, Rhino Lab had already sent the estimate and booked the job.",
@@ -316,7 +315,7 @@ const en: Messages = {
     title: "What we sell",
     items: [
       { title: "Instant estimator", body: "Price on their phone in 60 seconds." },
-      { title: "Built-in CRM", body: "The lead lands in a card. Auto follow-up." },
+      { title: "Built-in CRM", body: "The lead lands in a card with its source and job details." },
       { title: "AI content", body: "Videos that bring traffic. You own it." },
     ],
   },
@@ -351,7 +350,7 @@ const en: Messages = {
     does: "What it does",
     salesman: "Salesman job",
     first: "First contact. First 30 seconds. Most owners blow this.",
-    follow: "Then it saves the lead. Writes. Reminds. Follow-up.",
+    follow: "Then it saves the lead, alerts the owner, and creates visible follow-up work.",
     website: "Website job",
     remember: "You have to be remembered.",
     experience:
@@ -442,7 +441,8 @@ const en: Messages = {
       "Homeowner opens your estimator.",
       "They pick the job and the size.",
       "Price lands in under 60 seconds.",
-      "CRM files the lead instantly.",
+      "They can upload a yard photo for an AI fence concept.",
+      "CRM files the source and project details.",
       "You call first. You book it.",
     ],
   },
@@ -464,7 +464,7 @@ const en: Messages = {
     items: [
       {
         title: "First touch",
-        body: "Homeowner submits address + job type. System pulls your pricing rules and returns an estimate range in under 60 seconds via SMS + link.",
+        body: "The homeowner chooses the job and size. The system applies your pricing rules and returns an estimate range on the phone in under 60 seconds.",
       },
       {
         title: "Warm-up",
@@ -475,8 +475,8 @@ const en: Messages = {
         body: "Name, phone, photos, job details write directly into CRM as a new lead card — no manual entry.",
       },
       {
-        title: "Follow-up",
-        body: "If they do not book within 24 hours, an automated SMS sequence fires (3 touches over 5 days). You get an alert if the lead goes cold.",
+        title: "Owner handoff",
+        body: "The owner receives the lead immediately. The CRM keeps follow-up tasks visible so the team can act and record the result.",
       },
       {
         title: "Money",
@@ -529,15 +529,15 @@ const en: Messages = {
         body: "Dollar value of open work — not just a list of names.",
       },
       {
-        title: "Follow-up already running",
-        body: "First reply sent. Reminders scheduled. You don't chase a napkin.",
+        title: "Follow-up stays visible",
+        body: "The owner gets an alert and the CRM shows what is due. No lead disappears on a napkin.",
       },
     ],
   },
   pricing: {
     kicker: "Prices",
-    title: "Two packages.",
-    body: "Start with Base. Step up to Pro when you want the full brand experience.",
+    title: "Three ways to build the system.",
+    body: "Start with the estimator. Add the full brand experience. Add content when you are ready to generate traffic too.",
     frame:
       "Base captures the lead. Pro becomes your digital salesman. Ultimate generates the traffic so you stop buying names.",
     setup: "Setup",
@@ -556,7 +556,7 @@ const en: Messages = {
         "Your Pricing & Services",
         "Lead Capture & Tracking",
         "Instant Estimates",
-        "Automated Follow-Up",
+        "Owner Alerts & Follow-Up Tasks",
         "Customer Analytics",
       ],
     },
@@ -571,7 +571,7 @@ const en: Messages = {
         "Animated Mascot Experience",
         "Full Website Experience",
         "Advanced Lead Qualification",
-        "Automated First Sales Touch",
+        "Instant Owner Lead Alert",
         "Advanced CRM & Analytics",
       ],
     },
@@ -637,7 +637,7 @@ const en: Messages = {
       },
       {
         q: "I am not a tech person.",
-        a: "You do not open a dashboard to make this work. They get a link. You get a lead. If they go quiet, the follow-up texts fire on their own.",
+        a: "The homeowner gets a simple link. You get a lead card and an immediate owner alert. The CRM keeps follow-up work visible for the team.",
       },
       {
         q: "I only do one trade — fences, decks, roofs.",
@@ -649,7 +649,7 @@ const en: Messages = {
       },
       {
         q: "What happens after they get the estimate?",
-        a: "They answer 3–5 questions, send photos, and land in CRM. If they do not book, SMS follow-up runs for five days. You see deal value on one card.",
+        a: "They answer the project questions, get a price range, and can upload a yard photo for an AI fence concept. The source, selections, estimate, contact details, and original photo land in CRM.",
       },
       {
         q: "Do I have to start with Ultimate?",
@@ -662,7 +662,7 @@ const en: Messages = {
     steps: [
       { title: "We talk.", body: "15 minutes. Your trade, your prices, your town." },
       { title: "We build.", body: "Estimator, CRM, your brand. You do not sit in a dashboard." },
-      { title: "Leads land.", body: "They get a price. You get a card. Follow-up runs itself." },
+      { title: "Leads land.", body: "They get a price. You get the source, project details, photo, and a clear follow-up task." },
     ],
   },
   compare: "The old stack burns $30,000+ a month. Rhino starts at $950.",
@@ -702,10 +702,9 @@ const en: Messages = {
 
 const ru: Messages = {
   seo: {
-    title:
-      "Rhino Lab | Мгновенный оценщик для подрядчиков — ответ лиду за 60 секунд",
+    title: "Rhino Lab | AI-системы продаж для подрядчиков",
     description:
-      "Клиент звонит в 3–5 компаний. Обычно берёт работу тот, кто первым дал цену. Rhino Lab шлёт смету за 60 секунд и кладёт лид в CRM. Сделано David Zuev.",
+      "Rhino Lab даёт подрядчику мгновенный estimator, AI-визуализацию двора, CRM-атрибуцию, производство контента и обучающие игры.",
   },
   nav: {
     problem: "Проблема",
@@ -749,7 +748,7 @@ const ru: Messages = {
     job: "Виниловый забор · 150 футов · 1 калитка",
     book: "Забронировать",
     filed: "Лид уже в CRM.",
-    pipeline: "+$5,200 в воронке — без единого звонка.",
+    pipeline: "+$5,200 в воронке — владелец уже видит лид.",
     footer: "Один клиент. Один вопрос. Пяти компаниям сразу.",
     footerWon:
       "Пока остальные ещё печатали, Rhino Lab уже отправил смету и закрыл работу.",
@@ -762,7 +761,7 @@ const ru: Messages = {
     title: "Что продаём",
     items: [
       { title: "Мгновенная смета", body: "Цена у клиента за 60 секунд." },
-      { title: "Своя CRM", body: "Лид падает в карточку. Дожим сам." },
+      { title: "Своя CRM", body: "Лид падает в карточку с источником и деталями работы." },
       { title: "AI-контент", body: "Видео, которые ведут трафик. Ваши." },
     ],
   },
@@ -797,7 +796,7 @@ const ru: Messages = {
     does: "Что он делает",
     salesman: "Salesman job",
     first: "Первый контакт. Первые 30 секунд. Это профукивают чаще всего.",
-    follow: "Потом сохраняет лид. Пишет. Напоминает. Follow-up.",
+    follow: "Потом сохраняет лид, сообщает владельцу и ставит понятные задачи на follow-up.",
     website: "Website job",
     remember: "You have to be remembered.",
     experience:
@@ -887,7 +886,8 @@ const ru: Messages = {
       "Клиент открывает твой estimator.",
       "Выбирает работу и размер.",
       "Цена за 60 секунд.",
-      "CRM сразу пишет лид.",
+      "Может загрузить фото двора и увидеть AI-концепт забора.",
+      "CRM сохраняет источник и детали проекта.",
       "Ты звонишь первым. Закрываешь.",
     ],
   },
@@ -909,7 +909,7 @@ const ru: Messages = {
     items: [
       {
         title: "Первое касание",
-        body: "Клиент указывает адрес и тип работы. Система берёт ваши прайсы и за 60 секунд присылает диапазон цены по SMS + ссылке.",
+        body: "Клиент выбирает тип работы и размер. Система берёт ваши прайсы и за 60 секунд показывает диапазон цены на телефоне.",
       },
       {
         title: "Прогрев",
@@ -920,8 +920,8 @@ const ru: Messages = {
         body: "Имя, телефон, фото и детали работы сразу становятся карточкой лида в CRM — без ручного ввода.",
       },
       {
-        title: "Дожим",
-        body: "Если за 24 часа нет записи, уходит авто-SMS (3 касания за 5 дней). Владелец получает алерт, если лид остывает.",
+        title: "Передача владельцу",
+        body: "Владелец сразу получает лид. CRM держит задачи на follow-up перед глазами, чтобы команда отработала контакт и записала результат.",
       },
       {
         title: "Деньги",
@@ -974,15 +974,15 @@ const ru: Messages = {
         body: "Доллары открытых сделок — не просто список имён.",
       },
       {
-        title: "Дожим уже идёт",
-        body: "Первый ответ ушёл. Напоминания стоят. Не гоняешься за салфеткой.",
+        title: "Follow-up всегда виден",
+        body: "Владелец получает алерт, а CRM показывает, что нужно сделать. Лид не исчезает на салфетке.",
       },
     ],
   },
   pricing: {
     kicker: "Цены",
-    title: "Два пакета.",
-    body: "Начните с Base. Перейдите на Pro, когда нужна полная витрина бренда.",
+    title: "Три способа собрать систему.",
+    body: "Начните с estimator. Добавьте полный бренд. Подключите контент, когда готовы ещё и генерировать трафик.",
     frame:
       "Base ловит лид. Pro становится цифровым продавцом. Ultimate сам генерирует трафик — вы перестаёте покупать имена.",
     setup: "Setup",
@@ -1001,7 +1001,7 @@ const ru: Messages = {
         "Ваши цены и услуги",
         "Захват и трекинг лидов",
         "Мгновенные оценки",
-        "Автодожим",
+        "Алерты владельцу и задачи на follow-up",
         "Аналитика клиентов",
       ],
     },
@@ -1016,7 +1016,7 @@ const ru: Messages = {
         "Анимированный маскот",
         "Полноценный сайт",
         "Продвинутая квалификация лидов",
-        "Автоматический первый касание продаж",
+        "Мгновенный алерт о новом лиде",
         "Продвинутая CRM и аналитика",
       ],
     },
@@ -1082,7 +1082,7 @@ const ru: Messages = {
       },
       {
         q: "Я не технарь.",
-        a: "Вам не нужно открывать дашборд, чтобы это работало. Им приходит ссылка. Вам приходит лид. Если они замолчат — дожим уходит сам.",
+        a: "Клиент получает простую ссылку. Вы получаете карточку лида и мгновенный алерт. CRM держит задачи на follow-up перед глазами команды.",
       },
       {
         q: "У меня один профиль — заборы, террасы, крыши.",
@@ -1094,7 +1094,7 @@ const ru: Messages = {
       },
       {
         q: "Что после сметы?",
-        a: "Они отвечают на 3–5 вопросов, кидают фото и попадают в CRM. Если нет записи — SMS-дожим идёт пять дней. Сумма сделки на одной карточке.",
+        a: "Клиент отвечает на вопросы, получает диапазон цены и может загрузить фото двора для AI-концепта забора. Источник, выбор, смета, контакты и исходное фото попадают в CRM.",
       },
       {
         q: "Надо сразу брать Ultimate?",
@@ -1107,7 +1107,7 @@ const ru: Messages = {
     steps: [
       { title: "Созвон.", body: "15 минут. Ваш профиль, ваши цены, ваш город." },
       { title: "Сборка.", body: "Оценщик, CRM, ваш бренд. Дашборд вам не нужен." },
-      { title: "Лиды.", body: "Им — цена. Вам — карточка. Дожим идёт сам." },
+      { title: "Лиды.", body: "Им — цена. Вам — источник, детали, фото и понятная задача на follow-up." },
     ],
   },
   compare: "Старый стек сжигает $30,000+ в месяц. Rhino — от $950.",

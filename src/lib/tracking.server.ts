@@ -91,6 +91,7 @@ type SessionDb = {
   utm_source: string | null;
   utm_medium: string | null;
   utm_campaign: string | null;
+  utm_content: string | null;
   started_at: string | Date;
   last_seen: string | Date;
 };
@@ -148,6 +149,7 @@ export async function sessionsForIds(sessionIds: string[], visitorIds: string[])
         utmSource: row.utm_source || "",
         utmMedium: row.utm_medium || "",
         utmCampaign: row.utm_campaign || "",
+        utmContent: row.utm_content || "",
         startedAt: asIso(row.started_at),
         lastSeen: asIso(row.last_seen),
         slides,
@@ -182,6 +184,7 @@ export async function listSessions(limit = 80): Promise<SessionRow[]> {
       utmSource: row.utm_source || "",
       utmMedium: row.utm_medium || "",
       utmCampaign: row.utm_campaign || "",
+      utmContent: row.utm_content || "",
       startedAt: asIso(row.started_at),
       lastSeen: asIso(row.last_seen),
       slides,

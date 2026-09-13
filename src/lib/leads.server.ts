@@ -31,6 +31,7 @@ type LeadRow = {
   utm_source?: string | null;
   utm_medium?: string | null;
   utm_campaign?: string | null;
+  utm_content?: string | null;
   package?: string | null;
 };
 
@@ -102,6 +103,7 @@ function mapLead(
     utmSource: extra?.utmSource || row.utm_source || "",
     utmMedium: extra?.utmMedium || row.utm_medium || "",
     utmCampaign: extra?.utmCampaign || row.utm_campaign || "",
+    utmContent: extra?.utmContent || row.utm_content || "",
     packageName:
       extra?.packageName ||
       row.package ||
@@ -230,6 +232,7 @@ export async function createLead(raw: LeadInput): Promise<Lead> {
     utmSource: required(raw.utmSource),
     utmMedium: required(raw.utmMedium),
     utmCampaign: required(raw.utmCampaign),
+    utmContent: required(raw.utmContent),
     packageName: required(raw.packageName) || packageFromSource(raw.source || ""),
   };
 
@@ -252,14 +255,15 @@ export async function createLead(raw: LeadInput): Promise<Lead> {
       id, first_name, last_name, phone, email, city, state, country,
       company, goals, source, stage, created_at, updated_at,
       visitor_id, session_id, channel, landing, referrer,
-      utm_source, utm_medium, utm_campaign, package
+      utm_source, utm_medium, utm_campaign, utm_content, package
     ) values (
       ${id}, ${input.firstName}, ${input.lastName}, ${input.phone}, ${input.email},
       ${input.city}, ${input.state}, ${input.country}, ${input.company},
       ${input.goals}, ${input.source}, ${"new"}, ${now.toISOString()}, ${now.toISOString()},
       ${input.visitorId || ""}, ${input.sessionId || ""}, ${input.channel || ""},
       ${input.landing || ""}, ${input.referrer || ""}, ${input.utmSource || ""},
-      ${input.utmMedium || ""}, ${input.utmCampaign || ""}, ${input.packageName || ""}
+      ${input.utmMedium || ""}, ${input.utmCampaign || ""}, ${input.utmContent || ""},
+      ${input.packageName || ""}
     )
   `;
 
@@ -316,6 +320,7 @@ export async function createLead(raw: LeadInput): Promise<Lead> {
     utmSource: input.utmSource || "",
     utmMedium: input.utmMedium || "",
     utmCampaign: input.utmCampaign || "",
+    utmContent: input.utmContent || "",
     packageName: input.packageName || "",
     hottestSlide: "",
     slides: [],
@@ -353,6 +358,9 @@ export async function listLeads(): Promise<Lead[]> {
       landing: row.landing || journey?.landing || "",
       referrer: row.referrer || journey?.referrer || "",
       utmSource: row.utm_source || journey?.utmSource || "",
+      utmMedium: row.utm_medium || journey?.utmMedium || "",
+      utmCampaign: row.utm_campaign || journey?.utmCampaign || "",
+      utmContent: row.utm_content || journey?.utmContent || "",
       hottestSlide: journey?.hottestSlide || "",
       slides: journey?.slides || [],
     });

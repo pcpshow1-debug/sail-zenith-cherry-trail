@@ -43,6 +43,7 @@ export type Lead = {
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
+  utmContent?: string;
   packageName?: string;
   hottestSlide?: string;
   slides?: { slideId: string; slideLabel: string; views: number; ms: number }[];
@@ -67,6 +68,7 @@ export type LeadInput = {
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
+  utmContent?: string;
   packageName?: string;
 };
 

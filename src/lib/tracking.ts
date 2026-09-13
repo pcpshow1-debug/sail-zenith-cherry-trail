@@ -37,6 +37,7 @@ export type SessionRow = {
   utmSource: string;
   utmMedium: string;
   utmCampaign: string;
+  utmContent: string;
   startedAt: string;
   lastSeen: string;
   slides: SlideStat[];
